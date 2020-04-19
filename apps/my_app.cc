@@ -3,7 +3,7 @@
 #include <cinder/gl/draw.h>
 #include <cinder/gl/gl.h>
 #include "my_app.h"
-
+#include <cinder/gl/scoped.h>
 #include <cinder/app/App.h>
 
 
@@ -15,14 +15,11 @@ using cinder::Rectf;
 
 
 MyApp::MyApp() {
-  std::cout << "constructor called" << std::endl;
 }
 
 void MyApp::setup() {
   cinder::gl::enableDepthWrite();
   cinder::gl::enableDepthRead();
-  std::cout << "setup called" << std::endl;
-
 }
 
 void MyApp::update() { }
@@ -30,15 +27,33 @@ void MyApp::update() { }
 void MyApp::draw() {
   cinder::gl::enableAlphaBlending();
   cinder::gl::clear();
-  cinder::gl::clear(Color(0, 50, 0));
-
-  cinder::gl::drawSolidRect(Rectf(50 * 4,
-                                  50 * 8,
-                                  50 * 4 + 50,
-                                  50 * 8 + 50));
+  cinder::gl::clear(Color(255, 255, 255));
+//  cinder::gl::clear(ScopedColor(255, 255, 255, 1));
   const cinder::vec2 center = getWindowCenter();
-  std::cout << "draw called" << std::endl;
+  drawGrid();
+  drawLiveCells();
 }
+
+void MyApp::drawGrid() {
+  cinder::gl::color(0, 0, 0);
+  for (int i = 0; i < 800; i+= 40) {
+    for (int j = 0; j < 800; j+= 40) {
+      cinder::gl::drawStrokedRect(Rectf(i, j, i + 40, j + 40));
+    }
+  }
+}
+
+void MyApp::drawLiveCells() {
+
+  std::vector<int> values{40, 160, 320, 120};
+  for (auto loc : values) {
+    cinder::gl::color(255, 0, 0);
+    cinder::gl::drawSolidRect(Rectf(loc, loc, loc + 40, loc + 40));
+  }
+}
+
+
+
 
 void MyApp::keyDown(KeyEvent event) { }
 
