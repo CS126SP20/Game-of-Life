@@ -2,9 +2,12 @@
 
 #include <cinder/app/App.h>
 #include <cinder/app/RendererGl.h>
+#include <ctime>
 
 #include "my_app.h"
 
+/* Visualization of game:
+ * https://bitstorm.org/gameoflife/ */
 
 using cinder::app::App;
 using cinder::app::RendererGl;
@@ -18,7 +21,12 @@ const int kHeight = 800;
 
 void SetUp(App::Settings* settings) {
   settings->setWindowSize(kWidth, kHeight);
-  settings->setTitle("My CS 126 Application");
+  settings->setResizable(false);
+  settings->setTitle("Game of Life");
+
+  std::srand(std::time(0));
+  std::cout << "main set up called" << std::endl;
+
 }
 
 }  // namespace myapp
@@ -28,3 +36,5 @@ void SetUp(App::Settings* settings) {
 CINDER_APP(myapp::MyApp,
            RendererGl(RendererGl::Options().msaa(myapp::kSamples)),
            myapp::SetUp)
+
+//CINDER_APP(myapp::MyApp, RendererGl)
