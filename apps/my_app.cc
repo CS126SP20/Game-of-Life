@@ -29,7 +29,22 @@ MyApp::MyApp() {
   }
     nlohmann::json j;
     i >> j;
-    std::cout << "json content:" << std::endl << j["seeds"][0]["x"] << std::endl;
+    std::cout << "json content:" << std::endl << j.at("seeds").at(0).at("x") << std::endl;
+
+
+  std::vector<std::vector<int> > cell_grid(3, std::vector<int> (2, 0));
+  for (int i = 0; i < 3; i++) {
+    cell_grid[i][0] = j.at("seeds").at(i).at("x");
+    cell_grid[i][1] = j.at("seeds").at(i).at("y");
+  }
+
+  std::cout << "my loading json to vector " << std::endl;
+  for (int i = 0; i < cell_grid.size(); i++) {
+    for (int j = 0; j < cell_grid.size(); j++) {
+      std::cout << cell_grid[i][j] << " ";
+    }
+    std::cout << std::endl;
+  }
 }
 
 void MyApp::setup() {

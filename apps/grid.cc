@@ -25,6 +25,15 @@ Grid::Grid(size_t dimension) {
 void Grid::FillGrid() {
 //  std::vector<std::vector<int> > cell_grid(dimension, std::vector<int> (dimension, 0));
   std::vector<std::vector<int> > seed{{1,2}, {2, 4}, {3, 3}};
+
+  std::cout << "the seed vector " << std::endl;
+  for (int i = 0; i < seed.size(); i++) {
+    for (int j = 0; j < seed.size(); j++) {
+      std::cout << seed[i][j] << " ";
+    }
+    std::cout << std::endl;
+  }
+
   for (int i = 0; i < seed.size(); i++) {
     assert((seed[i][0]) < grid_dimension_);
     assert((seed[i][1]) < grid_dimension_);
