@@ -2,8 +2,8 @@
 
 #include <cinder/app/App.h>
 #include <cinder/app/RendererGl.h>
-#include <ctime>
 
+#include <ctime>
 #include "my_app.h"
 
 /* Visualization of game:
@@ -26,7 +26,6 @@ void SetUp(App::Settings* settings) {
 
   std::srand(std::time(0));
   std::cout << "main set up called" << std::endl;
-
 }
 
 }  // namespace myapp

@@ -1,11 +1,13 @@
 // Copyright (c) 2020 [Your Name]. All rights reserved.
 
+#include "my_app.h"
+
+#include <cinder/app/App.h>
 #include <cinder/gl/draw.h>
 #include <cinder/gl/gl.h>
-#include "my_app.h"
 #include <cinder/gl/scoped.h>
-#include <cinder/app/App.h>
 
+#include "../include/mylibrary/grid.h"
 
 namespace myapp {
 
@@ -20,6 +22,8 @@ MyApp::MyApp() {
 void MyApp::setup() {
   cinder::gl::enableDepthWrite();
   cinder::gl::enableDepthRead();
+  mylibrary::Grid model_grid(10);
+
 }
 
 void MyApp::update() { }
@@ -28,7 +32,6 @@ void MyApp::draw() {
   cinder::gl::enableAlphaBlending();
   cinder::gl::clear();
   cinder::gl::clear(Color(255, 255, 255));
-//  cinder::gl::clear(ScopedColor(255, 255, 255, 1));
   const cinder::vec2 center = getWindowCenter();
   drawGrid();
   drawLiveCells();
@@ -44,16 +47,12 @@ void MyApp::drawGrid() {
 }
 
 void MyApp::drawLiveCells() {
-
   std::vector<int> values{40, 160, 320, 120};
   for (auto loc : values) {
     cinder::gl::color(255, 0, 0);
     cinder::gl::drawSolidRect(Rectf(loc, loc, loc + 40, loc + 40));
   }
 }
-
-
-
 
 void MyApp::keyDown(KeyEvent event) { }
 
