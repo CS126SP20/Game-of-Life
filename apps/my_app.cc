@@ -7,6 +7,7 @@
 #include <cinder/gl/gl.h>
 #include <cinder/gl/scoped.h>
 
+#include <nlohmann/json.hpp>
 #include "../include/mylibrary/grid.h"
 
 namespace myapp {
@@ -15,8 +16,20 @@ using cinder::app::KeyEvent;
 using cinder::Color;
 using cinder::Rectf;
 
-
 MyApp::MyApp() {
+//  std::ifstream i("test_seeds.json");
+  std::ifstream i("../../../../../../resources/seeds.json", std::fstream::in);
+  if (!i.is_open()) {
+    std::cout << "failed to open file " << '\n';
+    return; //TODO error handling
+  }
+  if (i.fail()) {
+    std::cout << "error" << std::endl;  // return to handle error
+    return; //TODO error handling
+  }
+    nlohmann::json j;
+    i >> j;
+    std::cout << "json content:" << std::endl << j["seeds"][0]["x"] << std::endl;
 }
 
 void MyApp::setup() {
