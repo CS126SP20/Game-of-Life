@@ -7,7 +7,7 @@
 namespace mylibrary {
 
 // in final, takes in dimension and seed from json (add parameter)
-Grid::Grid(size_t dimension) {
+Grid::Grid(size_t dimension, std::vector<std::vector<int> > seed) {
   //want grid to be a global public variable
       // how to initialize with a passed in size
   grid_dimension_ = dimension;
@@ -17,14 +17,14 @@ Grid::Grid(size_t dimension) {
       cell_grid_[i].resize(dimension);
     }
   }
-  FillGrid();
+  FillGrid(seed);
 }
 
 // does not need any parameter of dimension
 // does not let to use cell_grid[][]
-void Grid::FillGrid() {
+void Grid::FillGrid(std::vector<std::vector<int> > seed) {
 //  std::vector<std::vector<int> > cell_grid(dimension, std::vector<int> (dimension, 0));
-  std::vector<std::vector<int> > seed{{1,2}, {2, 4}, {3, 3}};
+//  std::vector<std::vector<int> > seed{{1,2}, {2, 4}, {3, 3}};
 
   std::cout << "the seed vector " << std::endl;
   for (int i = 0; i < seed.size(); i++) {
@@ -35,7 +35,8 @@ void Grid::FillGrid() {
   for (int i = 0; i < seed.size(); i++) {
     assert((seed[i][0]) < grid_dimension_);
     assert((seed[i][1]) < grid_dimension_);
-    cell_grid_[seed[i][0]][seed[i][1]] = 1;
+    std::cout << "i 0= " << seed[i][0] << " i 1= " << seed[i][1] << std::endl;
+    cell_grid_[seed[i][1]][seed[i][0]] = 1; //TODO isn't this flipped???
   }
   PrintGrid();
 }

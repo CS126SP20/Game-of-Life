@@ -9,11 +9,11 @@ namespace mylibrary {
 class Grid {
  public:
   // Empty constructor for image class
-  Grid(size_t dimension);
+  Grid(size_t dimension, std::vector<std::vector<int> > seed);
   std::vector<std::vector<int> > cell_grid_;
  private:
   size_t grid_dimension_;
-  void FillGrid();
+  void FillGrid(std::vector<std::vector<int> > seed);
   void PrintGrid();
 };
 
