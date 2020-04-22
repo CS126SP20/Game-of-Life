@@ -17,8 +17,7 @@ using cinder::Color;
 using cinder::Rectf;
 
 MyApp::MyApp() {
-//  std::ifstream i("test_seeds.json");
-  std::ifstream i("../../../../../../resources/seeds.json", std::fstream::in);
+  std::ifstream i("../../../../../../resources/small_exploder.json", std::fstream::in);
   if (!i.is_open()) {
     std::cout << "failed to open file " << '\n';
     return; //TODO error handling
@@ -50,7 +49,7 @@ MyApp::MyApp() {
 void MyApp::setup() {
   cinder::gl::enableDepthWrite();
   cinder::gl::enableDepthRead();
-  mylibrary::Grid model_grid(10, filled_grid_);
+  mylibrary::Grid model_grid(60, filled_grid_);
 }
 
 void MyApp::update() { }
@@ -66,9 +65,9 @@ void MyApp::draw() {
 
 void MyApp::drawGrid() {
   cinder::gl::color(0, 0, 0);
-  for (int i = 0; i < 800; i+= 40) {
-    for (int j = 0; j < 800; j+= 40) {
-      cinder::gl::drawStrokedRect(Rectf(i, j, i + 40, j + 40));
+  for (int i = 0; i < 600; i+= 10) {
+    for (int j = 0; j < 600; j+= 10) {
+      cinder::gl::drawStrokedRect(Rectf(i, j, i + 10, j + 10));
     }
   }
 }
@@ -80,11 +79,11 @@ void MyApp::drawLiveCells() {
 //    cinder::gl::drawSolidRect(Rectf(loc, loc, loc + 40, loc + 40));
 //  }
   for (int i = 0; i < filled_grid_.size(); i++) {
-    int x_coord = (filled_grid_[i][0]) * 40;
-    int y_coord = (filled_grid_[i][1]) * 40;
+    int x_coord = (filled_grid_[i][0]) * 10;
+    int y_coord = (filled_grid_[i][1]) * 10;
 //    std::cout << "x coord= " << x_coord << "y coord= " << y_coord << std::endl;
     cinder::gl::color(255, 0, 0);
-    cinder::gl::drawSolidRect(Rectf(x_coord, y_coord, x_coord + 40, y_coord + 40));
+    cinder::gl::drawSolidRect(Rectf(x_coord, y_coord, x_coord + 10, y_coord + 10));
   }
 }
 

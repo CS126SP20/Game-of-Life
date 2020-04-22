@@ -38,7 +38,7 @@ void Grid::FillGrid(std::vector<std::vector<int> > seed) {
     std::cout << "i 0= " << seed[i][0] << " i 1= " << seed[i][1] << std::endl;
     cell_grid_[seed[i][1]][seed[i][0]] = 1; //TODO isn't this flipped???
   }
-  PrintGrid();
+//  PrintGrid();
 }
 
 // pass in the 2d grid
