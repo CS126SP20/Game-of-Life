@@ -28,9 +28,7 @@ void Grid::FillGrid() {
 
   std::cout << "the seed vector " << std::endl;
   for (int i = 0; i < seed.size(); i++) {
-    for (int j = 0; j < seed.size(); j++) {
-      std::cout << seed[i][j] << " ";
-    }
+    std::cout << seed[i][0] << " " << seed[i][1] << " ";
     std::cout << std::endl;
   }
 

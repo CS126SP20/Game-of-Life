@@ -32,17 +32,33 @@ MyApp::MyApp() {
     std::cout << "json content:" << std::endl << j.at("seeds").at(0).at("x") << std::endl;
 
 
-  std::vector<std::vector<int> > cell_grid(3, std::vector<int> (2, 0));
-  for (int i = 0; i < 3; i++) {
-    cell_grid[i][0] = j.at("seeds").at(i).at("x");
-    cell_grid[i][1] = j.at("seeds").at(i).at("y");
+  std::vector<std::vector<int> > cell_grid; //TODO USE PUSHBACK AND FOR EACH
+//  for (int i = 0; i < 3; i++) {
+//    cell_grid[i][0] = j.at("seeds").at(i).at("x");
+//    cell_grid[i][1] = j.at("seeds").at(i).at("y");
+//  }
+//  std::cout << "cell grid size =  " << cell_grid.size() << std::endl;
+//
+//  std::cout << "my loading json to vector " << std::endl;
+//  for (int i = 0; i < cell_grid.size(); i++) {
+//    std::cout << cell_grid[i][0] << " " << cell_grid[i][1] << " ";
+//    std::cout << std::endl;
+//  }
+
+  for (auto& x : j["seeds"].items())
+  {
+//    cell_grid[x.key()].push_back(x.value());
+    int num_x =  x.value()["x"];
+    int num_y =  x.value()["y"];
+    std::vector<int> coordinates = {num_x, num_y};
+    cell_grid.push_back(coordinates);
+//    std::cout << "key: " << x.key() << ", x value: " << x.value()["x"] << ". y value: " << x.value()["y"] << '\n';
+    std::cout << "x is " << num_x << " y is " << num_y << std::endl;
   }
 
-  std::cout << "my loading json to vector " << std::endl;
+  std::cout << "json coordinates " << std::endl;
   for (int i = 0; i < cell_grid.size(); i++) {
-    for (int j = 0; j < cell_grid.size(); j++) {
-      std::cout << cell_grid[i][j] << " ";
-    }
+    std::cout << cell_grid[i][0] << " " << cell_grid[i][1] << " ";
     std::cout << std::endl;
   }
 }
@@ -51,7 +67,6 @@ void MyApp::setup() {
   cinder::gl::enableDepthWrite();
   cinder::gl::enableDepthRead();
   mylibrary::Grid model_grid(10);
-
 }
 
 void MyApp::update() { }
