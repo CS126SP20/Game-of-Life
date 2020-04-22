@@ -74,10 +74,17 @@ void MyApp::drawGrid() {
 }
 
 void MyApp::drawLiveCells() {
-  std::vector<int> values{40, 160, 320, 120};
-  for (auto loc : values) {
+//  std::vector<int> values{40, 160, 320, 120};
+//  for (auto loc : values) {
+//    cinder::gl::color(255, 0, 0);
+//    cinder::gl::drawSolidRect(Rectf(loc, loc, loc + 40, loc + 40));
+//  }
+  for (int i = 0; i < filled_grid_.size(); i++) {
+    int x_coord = (filled_grid_[i][0]) * 40;
+    int y_coord = (filled_grid_[i][1]) * 40;
+//    std::cout << "x coord= " << x_coord << "y coord= " << y_coord << std::endl;
     cinder::gl::color(255, 0, 0);
-    cinder::gl::drawSolidRect(Rectf(loc, loc, loc + 40, loc + 40));
+    cinder::gl::drawSolidRect(Rectf(x_coord, y_coord, x_coord + 40, y_coord + 40));
   }
 }
 
