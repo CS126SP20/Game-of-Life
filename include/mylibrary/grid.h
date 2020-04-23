@@ -25,6 +25,7 @@ class Grid {
    * coordinates passed in by the seed vector from the json file
    */
   std::vector<std::vector<int> > cell_grid_;
+  std::vector<std::vector<int> > next_gen_;
  private:
   /* Private variable to store the passed in dimension */
   size_t grid_dimension_;
@@ -40,10 +41,21 @@ class Grid {
   void FillGrid(std::vector<std::vector<int> > seed);
 
   /*
+   * //TODO
+   */
+  void CalculateNextGeneration();
+
+  /*
+   * //TODO
+   */
+  int CountNeighbors(int x, int y);
+
+
+  /*
   * Helper method to print out the grid after it has been filled with 1's
   * or 0's. Method is called in the helper method FillGrid.
   */
-  void PrintGrid();
+  void PrintGrid(std::vector<std::vector<int> > passed_grid_);
 };
 
 }  // namespace mylibrary
