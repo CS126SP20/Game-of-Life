@@ -52,8 +52,6 @@ void Grid::FillGrid(std::vector<std::vector<int> > seed) {
   std::cout << "original grid: " << std::endl;
   PrintGrid(cell_grid_);
   CalculateNextGeneration();
-  std::cout << "next generation grid: " << std::endl;
-  PrintGrid(next_gen_);
 }
 
 /*
@@ -102,13 +100,15 @@ void Grid::CalculateNextGeneration() {
       }
     }
   }
+  std::cout << "next generation grid: " << std::endl;
+  PrintGrid(next_gen_);
 }
 
 int Grid::CountNeighbors(int x, int y) {
   int num_neighbors = 0;
   for (int i = -1; i < 2; i++) {
       for (int j = -1; j < 2; j++) {
-          num_neighbors = cell_grid_[x + i][y + j]; // 0's and 1's so add for sum
+          num_neighbors += cell_grid_[x + i][y + j]; // 0's and 1's so add for sum
       }
   }
   num_neighbors -= cell_grid_[x][y];
