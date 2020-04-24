@@ -49,8 +49,8 @@ void Grid::FillGrid(std::vector<std::vector<int> > seed) {
     assert((seed[i][1]) < grid_dimension_);
     cell_grid_[seed[i][1]][seed[i][0]] = 1;  // TODO isn't this flipped???
   }
-  std::cout << "original grid: " << std::endl;
-  PrintGrid(cell_grid_);
+//  std::cout << "original grid: " << std::endl;
+//  PrintGrid(cell_grid_);
   CalculateNextGeneration();
 }
 
@@ -100,8 +100,9 @@ void Grid::CalculateNextGeneration() {
       }
     }
   }
-  std::cout << "next generation grid: " << std::endl;
-  PrintGrid(next_gen_);
+//  std::cout << "next generation grid: " << std::endl;
+//  PrintGrid(next_gen_);
+//  cell_grid_ = next_gen_;
 }
 
 int Grid::CountNeighbors(int x, int y) {

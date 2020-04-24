@@ -15,12 +15,13 @@ using cinder::app::RendererGl;
 
 namespace myapp {
 
-const int kSamples = 8;
+const int kSamples = 128;
 const int kWidth = 600;
 const int kHeight = 600;
 
 void SetUp(App::Settings* settings) {
   settings->setWindowSize(kWidth, kHeight);
+  settings->setFrameRate(1.0);
   settings->setResizable(false);
   settings->setTitle("Game of Life");
 

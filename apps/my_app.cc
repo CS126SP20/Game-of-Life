@@ -52,6 +52,7 @@ void MyApp::setup() {
   cinder::gl::enableDepthWrite();
   cinder::gl::enableDepthRead();
   mylibrary::Grid model_grid(60, filled_grid_);
+  std::cout << "frame rate " << getFrameRate() << std::endl;
 }
 
 void MyApp::update() {}
@@ -75,13 +76,17 @@ void MyApp::drawGrid() {
 }
 
 void MyApp::drawLiveCells() {
+  cinder::gl::color(255, 0, 0);
   for (int i = 0; i < filled_grid_.size(); i++) {
     int x_coord = (filled_grid_[i][0]) * 10;
     int y_coord = (filled_grid_[i][1]) * 10;
-    cinder::gl::color(255, 0, 0);
     cinder::gl::drawSolidRect(
         Rectf(x_coord, y_coord, x_coord + 10, y_coord + 10));
   }
+}
+
+void MyApp::DrawNextGeneration() {
+
 }
 
 void MyApp::keyDown(KeyEvent event) {}
