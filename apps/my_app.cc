@@ -14,8 +14,11 @@
 namespace myapp {
 
 using cinder::Color;
+using cinder::ColorA;
 using cinder::Rectf;
 using cinder::app::KeyEvent;
+
+const char kNormalFont[] = "Times New Roman";
 
 MyApp::MyApp() {
   std::ifstream i("../../../../../../resources/small_exploder.json",
@@ -64,8 +67,23 @@ void MyApp::draw() {
   const cinder::vec2 center = getWindowCenter();
   drawGrid();
   drawLiveCells();
+  DrawOptions();
+
+  const Color color = Color::white();
+  const cinder::vec2 location = {25, 620};
+  const cinder::ivec2 size = {100, 30};
+  PrintText("it worked?", color, size, location);
 }
 
+void MyApp::DrawOptions() {
+  cinder::gl::color(0, 0, 0);
+  size_t x = 20;
+  size_t y = 610;
+  for (int i = 0; i < 3; i++) {
+    cinder::gl::drawStrokedRect(Rectf(x, y, x + 100, y + 30));
+    x += 140;
+  }
+}
 void MyApp::drawGrid() {
   cinder::gl::color(0, 0, 0);
   for (int i = 0; i < 600; i += 10) {
@@ -85,10 +103,26 @@ void MyApp::drawLiveCells() {
   }
 }
 
-void MyApp::DrawNextGeneration() {
-
-}
+void MyApp::DrawNextGeneration() {}
 
 void MyApp::keyDown(KeyEvent event) {}
 
+void MyApp::PrintText(const std::string& text, const Color color, const cinder::ivec2& size,
+                      const cinder::vec2& loc) {
+  const Color box_color = Color::black();
+
+  auto box = cinder::TextBox()
+                 .alignment(cinder::TextBox::CENTER)
+                 .font(cinder::Font("Times New Roman", 20))
+                 .size(size)
+                 .color(box_color)
+                 .backgroundColor(ColorA(0, 0, 0, 0))
+                 .text(text);
+
+  const auto box_size = box.getSize();
+  const cinder::vec2 locp = {loc.x - box_size.x / 2, loc.y - box_size.y / 2};
+  const auto surface = box.render();
+  const auto texture = cinder::gl::Texture::create(surface);
+  cinder::gl::draw(texture, locp);
 }  // namespace myapp
+}
