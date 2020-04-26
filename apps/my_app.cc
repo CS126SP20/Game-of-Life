@@ -56,28 +56,31 @@ MyApp::MyApp() {
 void MyApp::setup() {
   cinder::gl::enableDepthWrite();
   cinder::gl::enableDepthRead();
-  mylibrary::Grid model_grid(knum_cells, filled_grid_);
+  grid_.SetDimensionAndFillSeeds(knum_cells, filled_grid_);
   std::cout << "frame rate " << getFrameRate() << std::endl;
 }
 
 void MyApp::update() {}
 
 void MyApp::draw() {
-  static int delay_count = 0;
-  if (delay_count % 2 != 0) {
-    delay_count++;
-    return;
-  }
-  delay_count++;
+//  static int delay_count = 0;
+  static int first_call = 0;
+  std::vector<std::vector<int>>& grid = grid_.Get_Curr_Grid(first_call != 0);
+  first_call++;
+//  if (delay_count % 5 != 0) {
+//    delay_count++;
+//    return;
+//  }
+//  delay_count++;
   cinder::gl::enableAlphaBlending();
   cinder::gl::clear();
   cinder::gl::clear(Color(255, 255, 255));
   const cinder::vec2 center = getWindowCenter();
-  drawGrid();
+  drawGrid(grid);
   DrawOptions();
-  if (Is_File_Chosen) {
-    drawLiveCells();
-  }
+//  if (Is_File_Chosen) {
+//    drawLiveCells();
+//  }
   auto time = std::chrono::system_clock::now();
   std::cout << "get time of day " << time.time_since_epoch().count()/1000 << std::endl;
 }
@@ -96,24 +99,33 @@ void MyApp::DrawOptions() {
     x += 140;
   }
 }
-void MyApp::drawGrid() {
-  cinder::gl::color(0, 0, 0);
-  for (int i = 0; i < kgrid_dimension; i += 10) {
-    for (int j = 0; j < kgrid_dimension; j += 10) {
-      cinder::gl::drawStrokedRect(Rectf(i, j, i + 10, j + 10));
+void MyApp::drawGrid(std::vector<std::vector<int>>& grid) {
+  for (int i = 0; i < knum_cells; i++) {
+    for (int j = 0; j < knum_cells; j++) {
+      int x_coord = i * 10;
+      int y_coord = j * 10;
+      if (grid[i][j] == 0) {
+        cinder::gl::color(0, 0, 0);
+        cinder::gl::drawStrokedRect(Rectf(x_coord, y_coord, x_coord + 10, y_coord + 10));
+      } else {
+        cinder::gl::color(255, 0, 0);
+        cinder::gl::drawSolidRect(Rectf(x_coord, y_coord, x_coord + 10, y_coord + 10));
+      }
     }
   }
 }
 
-void MyApp::drawLiveCells() {
-  cinder::gl::color(255, 0, 0);
-  for (int i = 0; i < filled_grid_.size(); i++) {
-    int x_coord = (filled_grid_[i][0]) * 10;
-    int y_coord = (filled_grid_[i][1]) * 10;
-    cinder::gl::drawSolidRect(
-        Rectf(x_coord, y_coord, x_coord + 10, y_coord + 10));
-  }
-}
+//void MyApp::drawLiveCells() {
+//  cinder::gl::color(255, 0, 0);
+//  for (int i = 0; i < filled_grid_.size(); i++) {
+//    int x_coord = (filled_grid_[i][0]) * 10;
+//    int y_coord = (filled_grid_[i][1]) * 10;
+//    cinder::gl::drawSolidRect(
+//        Rectf(x_coord, y_coord, x_coord + 10, y_coord + 10));
+//  }
+//}
+
+
 
 void MyApp::DrawNextGeneration() {
 

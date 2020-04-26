@@ -14,28 +14,8 @@ namespace mylibrary {
  * @param seed- the 2D vector containing the coordiates of the cells from the
  * json file
  */
-Grid::Grid(size_t dimension, std::vector<std::vector<int> > seed) {
-  // want grid to be a global public variable
-  // how to initialize with a passed in size
-  gen_id_ = 0;
-  grid_dimension_ = dimension;
 
-  // first level
-  grids.resize(2); //TODO magic #
-
-  // second level
-  grids[0].resize(dimension);
-  grids[1].resize(dimension);
-
-  // third level
-  for (int i = 0; i < 2; i++) {
-    for (int j = 0; j < dimension; j++) {
-      grids[i][j].resize(dimension);
-    }
-  }
-
-  FillGridWithSeed(grids[0], seed);
-}
+// TODO ensure dimension is set before this call
 
 std::vector<std::vector<int> >& Grid::Get_Curr_Grid(bool calc_next_gen) {
   if (calc_next_gen) {
@@ -56,7 +36,22 @@ std::vector<std::vector<int> >& Grid::Get_Curr_Grid(bool calc_next_gen) {
  * @param seed- the 2D vector containing the coordiates of the cells from the
  * json file
  */
-void Grid::FillGridWithSeed(std::vector<std::vector<int> >& grid, std::vector<std::vector<int> > seed) {
+void Grid::SetDimensionAndFillSeeds(size_t dimension, std::vector<std::vector<int> > seed) {
+  grid_dimension_ = dimension;
+
+  // first level
+  grids.resize(2); //TODO magic #
+
+  // second level
+  grids[0].resize(dimension);
+  grids[1].resize(dimension);
+
+  // third level
+  for (int i = 0; i < 2; i++) {
+    for (int j = 0; j < dimension; j++) {
+      grids[i][j].resize(dimension);
+    }
+  }
   std::cout << "the seed vector " << std::endl;
   for (int i = 0; i < seed.size(); i++) {
     std::cout << seed[i][0] << " " << seed[i][1] << " ";
@@ -66,10 +61,8 @@ void Grid::FillGridWithSeed(std::vector<std::vector<int> >& grid, std::vector<st
   for (int i = 0; i < seed.size(); i++) {
     assert((seed[i][0]) < grid_dimension_);
     assert((seed[i][1]) < grid_dimension_);
-    grid[seed[i][1]][seed[i][0]] = 1;
+    grids[0][seed[i][1]][seed[i][0]] = 1;
   }
-//  std::cout << "original grid: " << std::endl;
-//  PrintGrid(cell_grid_);
 }
 
 /*

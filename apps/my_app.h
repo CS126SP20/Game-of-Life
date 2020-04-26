@@ -5,6 +5,8 @@
 
 #include <cinder/app/App.h>
 
+#include "../include/mylibrary/grid.h"
+
 namespace myapp {
 
 const size_t knum_cells = 60;
@@ -22,8 +24,9 @@ class MyApp : public cinder::app::App {
                  const cinder::vec2& loc);
   bool Is_File_Chosen = false;
  private:
-  void drawGrid();
-  void drawLiveCells();
+  mylibrary::Grid grid_;
+  void drawGrid(std::vector<std::vector<int>>& grid);
+//  void drawLiveCells();
   void DrawNextGeneration();
   void DrawOptions();
   std::vector<std::vector<int> > filled_grid_;
