@@ -40,6 +40,7 @@ MyApp::MyApp() {
     int num_x = x.value()["x"];
     int num_y = x.value()["y"];
     std::vector<int> coordinates = {num_x, num_y};
+
     filled_grid_.push_back(coordinates);
     std::cout << "x is " << num_x << " y is " << num_y << std::endl;
   }
@@ -54,7 +55,7 @@ MyApp::MyApp() {
 void MyApp::setup() {
   cinder::gl::enableDepthWrite();
   cinder::gl::enableDepthRead();
-  mylibrary::Grid model_grid(60, filled_grid_);
+  mylibrary::Grid model_grid(knum_cells, filled_grid_);
   std::cout << "frame rate " << getFrameRate() << std::endl;
 }
 
@@ -66,28 +67,30 @@ void MyApp::draw() {
   cinder::gl::clear(Color(255, 255, 255));
   const cinder::vec2 center = getWindowCenter();
   drawGrid();
-  drawLiveCells();
   DrawOptions();
-
-  const Color color = Color::white();
-  const cinder::vec2 location = {25, 620};
-  const cinder::ivec2 size = {100, 30};
-  PrintText("it worked?", color, size, location);
+  if (Is_File_Chosen) {
+    drawLiveCells();
+  }
 }
 
 void MyApp::DrawOptions() {
   cinder::gl::color(0, 0, 0);
+  const Color color = Color::black();
+  const cinder::vec2 location = {60, 625};
+  const cinder::ivec2 size = {70, 20};
+  PrintText("1. glider", color, size, location);
   size_t x = 20;
   size_t y = 610;
   for (int i = 0; i < 3; i++) {
     cinder::gl::drawStrokedRect(Rectf(x, y, x + 100, y + 30));
+//    PrintText("option", color, {x + 40, y + 15}, size);
     x += 140;
   }
 }
 void MyApp::drawGrid() {
   cinder::gl::color(0, 0, 0);
-  for (int i = 0; i < 600; i += 10) {
-    for (int j = 0; j < 600; j += 10) {
+  for (int i = 0; i < kgrid_dimension; i += 10) {
+    for (int j = 0; j < kgrid_dimension; j += 10) {
       cinder::gl::drawStrokedRect(Rectf(i, j, i + 10, j + 10));
     }
   }
@@ -105,17 +108,23 @@ void MyApp::drawLiveCells() {
 
 void MyApp::DrawNextGeneration() {}
 
-void MyApp::keyDown(KeyEvent event) {}
+void MyApp::keyDown(KeyEvent event) {
+  switch (event.getCode()) {
+    case KeyEvent::KEY_1: {
+      Is_File_Chosen = true;
+    }
+  }
+}
 
 void MyApp::PrintText(const std::string& text, const Color color, const cinder::ivec2& size,
                       const cinder::vec2& loc) {
-  const Color box_color = Color::black();
+  cinder::gl::color(color);
 
   auto box = cinder::TextBox()
                  .alignment(cinder::TextBox::CENTER)
-                 .font(cinder::Font("Times New Roman", 20))
+                 .font(cinder::Font("Times New Roman", 15))
                  .size(size)
-                 .color(box_color)
+                 .color(color)
                  .backgroundColor(ColorA(0, 0, 0, 0))
                  .text(text);
 

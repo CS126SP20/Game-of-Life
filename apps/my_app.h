@@ -7,6 +7,10 @@
 
 namespace myapp {
 
+const size_t knum_cells = 60;
+const size_t kgrid_dimension = 600;
+
+
 class MyApp : public cinder::app::App {
  public:
   MyApp();
@@ -16,7 +20,7 @@ class MyApp : public cinder::app::App {
   void keyDown(cinder::app::KeyEvent) override;
   void PrintText(const std::string& text, const cinder::Color color, const cinder::ivec2& size,
                  const cinder::vec2& loc);
-
+  bool Is_File_Chosen = false;
  private:
   void drawGrid();
   void drawLiveCells();
