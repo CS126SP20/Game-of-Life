@@ -6,6 +6,7 @@
 #include <cinder/gl/draw.h>
 #include <cinder/gl/gl.h>
 #include <cinder/gl/scoped.h>
+#include <chrono>
 
 #include <nlohmann/json.hpp>
 
@@ -62,6 +63,12 @@ void MyApp::setup() {
 void MyApp::update() {}
 
 void MyApp::draw() {
+  static int delay_count = 0;
+  if (delay_count % 2 != 0) {
+    delay_count++;
+    return;
+  }
+  delay_count++;
   cinder::gl::enableAlphaBlending();
   cinder::gl::clear();
   cinder::gl::clear(Color(255, 255, 255));
@@ -71,6 +78,8 @@ void MyApp::draw() {
   if (Is_File_Chosen) {
     drawLiveCells();
   }
+  auto time = std::chrono::system_clock::now();
+  std::cout << "get time of day " << time.time_since_epoch().count()/1000 << std::endl;
 }
 
 void MyApp::DrawOptions() {
@@ -106,7 +115,9 @@ void MyApp::drawLiveCells() {
   }
 }
 
-void MyApp::DrawNextGeneration() {}
+void MyApp::DrawNextGeneration() {
+
+}
 
 void MyApp::keyDown(KeyEvent event) {
   switch (event.getCode()) {

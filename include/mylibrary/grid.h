@@ -24,23 +24,25 @@ class Grid {
   /* 2D vector to be populated with 1's and 0's in accordance to the
    * coordinates passed in by the seed vector from the json file
    */
-  std::vector<std::vector<int> > cell_grid_;
-  std::vector<std::vector<int> > next_gen_;
-
+//  std::vector<std::vector<int> > grid_a_;
+//  std::vector<std::vector<int> > grid_b_;
+  std::vector<std::vector<std::vector<int>>> grids;
   /*
   * //TODO
   */
-  void CalculateNextGeneration();
+  void CalculateNextGeneration(std::vector<std::vector<int> >& curr_gen_, std::vector<std::vector<int> >& next_gen_);
 
   /* //TODO make private again
-* Helper method to print out the grid after it has been filled with 1's
-* or 0's. Method is called in the helper method FillGrid.
-*/
+  * Helper method to print out the grid after it has been filled with 1's
+  * or 0's. Method is called in the helper method FillGrid.
+  */
   void PrintGrid(std::vector<std::vector<int> > passed_grid_);
+
+  std::vector<std::vector<int> >& Get_Curr_Grid(bool calc_next_gen);
  private:
   /* Private variable to store the passed in dimension */
   size_t grid_dimension_;
-
+  size_t gen_id_;
   /*
   * Helper method to populate the global variable for the cell grid with the
   * coordinates passed in from the seed. In every existing coordinate in the
@@ -49,13 +51,13 @@ class Grid {
   * @param seed- the 2D vector containing the coordiates of the cells from the
   * json file
   */
-  void FillGrid(std::vector<std::vector<int> > seed);
+  void FillGridWithSeed(std::vector<std::vector<int> >& grid, std::vector<std::vector<int> > seed);
 
 
   /*
    * //TODO
    */
-  int CountNeighbors(int x, int y);
+  int CountNeighbors(std::vector<std::vector<int> >& grid, int x, int y);
 };
 
 }  // namespace mylibrary
