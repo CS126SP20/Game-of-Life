@@ -9,9 +9,9 @@
 
 namespace myapp {
 
-const size_t knum_cells = 60;
 const size_t kgrid_dimension = 600;
-
+const size_t kcell_size = 10;
+const size_t knum_cells = kgrid_dimension/kcell_size;
 
 class MyApp : public cinder::app::App {
  public:

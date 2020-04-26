@@ -63,15 +63,15 @@ void MyApp::setup() {
 void MyApp::update() {}
 
 void MyApp::draw() {
-//  static int delay_count = 0;
+  static int delay_count = 0;
   static int first_call = 0;
+  if (delay_count % 2 != 0) {
+    delay_count++;
+    return;
+  }
+  delay_count++;
   std::vector<std::vector<int>>& grid = grid_.Get_Curr_Grid(first_call != 0);
   first_call++;
-//  if (delay_count % 5 != 0) {
-//    delay_count++;
-//    return;
-//  }
-//  delay_count++;
   cinder::gl::enableAlphaBlending();
   cinder::gl::clear();
   cinder::gl::clear(Color(255, 255, 255));
@@ -109,7 +109,7 @@ void MyApp::drawGrid(std::vector<std::vector<int>>& grid) {
         cinder::gl::drawStrokedRect(Rectf(x_coord, y_coord, x_coord + 10, y_coord + 10));
       } else {
         cinder::gl::color(255, 0, 0);
-        cinder::gl::drawSolidRect(Rectf(x_coord, y_coord, x_coord + 10, y_coord + 10));
+        cinder::gl::drawSolidRect(Rectf(x_coord, y_coord, x_coord + 10, y_coord + 10)); //TODO border missing
       }
     }
   }

@@ -61,7 +61,7 @@ void Grid::SetDimensionAndFillSeeds(size_t dimension, std::vector<std::vector<in
   for (int i = 0; i < seed.size(); i++) {
     assert((seed[i][0]) < grid_dimension_);
     assert((seed[i][1]) < grid_dimension_);
-    grids[0][seed[i][1]][seed[i][0]] = 1;
+    grids[0][seed[i][0]][seed[i][1]] = 1;
   }
 }
 
