@@ -65,22 +65,26 @@ void MyApp::update() {}
 void MyApp::draw() {
   static int delay_count = 0;
   static int first_call = 0;
-  if (delay_count % 2 != 0) {
-    delay_count++;
-    return;
-  }
+//  if (delay_count % 2 != 0) {
+//    delay_count++;
+//    return;
+//  }
   delay_count++;
-  std::vector<std::vector<int>>& grid = grid_.Get_Curr_Grid(first_call != 0);
-  first_call++;
+//  std::vector<std::vector<int>>& grid = grid_.Get_Curr_Grid(first_call != 0);
+//  first_call++;
   cinder::gl::enableAlphaBlending();
   cinder::gl::clear();
   cinder::gl::clear(Color(255, 255, 255));
   const cinder::vec2 center = getWindowCenter();
-  drawGrid(grid);
+//  drawGrid(grid);
   DrawOptions();
-//  if (Is_File_Chosen) {
-//    drawLiveCells();
-//  }
+  if (Is_File_Chosen) {
+    cinder::gl::clear();
+    cinder::gl::clear(Color(255, 255, 255));
+    std::vector<std::vector<int>>& grid = grid_.Get_Curr_Grid(first_call != 0);
+    first_call++;
+    drawGrid(grid);
+  }
   auto time = std::chrono::system_clock::now();
   std::cout << "get time of day " << time.time_since_epoch().count()/1000 << std::endl;
 }
@@ -106,7 +110,8 @@ void MyApp::drawGrid(std::vector<std::vector<int>>& grid) {
       int y_coord = j * 10;
       if (grid[i][j] == 0) {
         cinder::gl::color(0, 0, 0);
-        cinder::gl::drawStrokedRect(Rectf(x_coord, y_coord, x_coord + 10, y_coord + 10));
+        cinder::gl::drawStrokedRect(
+            Rectf(x_coord, y_coord, x_coord + 10, y_coord + 10));
       } else {
         cinder::gl::color(255, 0, 0);
         cinder::gl::drawSolidRect(Rectf(x_coord, y_coord, x_coord + 10, y_coord + 10)); //TODO border missing
@@ -115,21 +120,19 @@ void MyApp::drawGrid(std::vector<std::vector<int>>& grid) {
   }
 }
 
-//void MyApp::drawLiveCells() {
-//  cinder::gl::color(255, 0, 0);
-//  for (int i = 0; i < filled_grid_.size(); i++) {
-//    int x_coord = (filled_grid_[i][0]) * 10;
-//    int y_coord = (filled_grid_[i][1]) * 10;
-//    cinder::gl::drawSolidRect(
-//        Rectf(x_coord, y_coord, x_coord + 10, y_coord + 10));
+//void MyApp::drawLiveCells(std::vector<std::vector<int>>& grid) {
+//  for (int i = 0; i < knum_cells; i++) {
+//    for (int j = 0; j < knum_cells; j++) {
+//      int x_coord = i * 10;
+//      int y_coord = j * 10;
+//      if (grid[i][j] == 1) {
+//        cinder::gl::color(255, 0, 0);
+//        cinder::gl::drawSolidRect(Rectf(x_coord, y_coord, x_coord + 10,
+//                                        y_coord + 10));  // TODO border missing
+//      }
+//    }
 //  }
 //}
-
-
-
-void MyApp::DrawNextGeneration() {
-
-}
 
 void MyApp::keyDown(KeyEvent event) {
   switch (event.getCode()) {

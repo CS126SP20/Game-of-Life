@@ -26,8 +26,7 @@ class MyApp : public cinder::app::App {
  private:
   mylibrary::Grid grid_;
   void drawGrid(std::vector<std::vector<int>>& grid);
-//  void drawLiveCells();
-  void DrawNextGeneration();
+  void drawLiveCells(std::vector<std::vector<int>>& grid);
   void DrawOptions();
   std::vector<std::vector<int> > filled_grid_;
 };
