@@ -1,4 +1,4 @@
-# [Game of Life (title will be changed)]
+# [Game of Life]
 
 Author: [Swathi Ram]
 
