@@ -5,7 +5,7 @@
 
 #include <ctime>
 
-#include "my_app.h"
+#include "cell_automaton.h"
 
 /* Visualization of game:
  * https://bitstorm.org/gameoflife/ */

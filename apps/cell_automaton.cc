@@ -1,13 +1,13 @@
 // Copyright (c) 2020 [Swathi Ram]. All rights reserved.
 
-#include "my_app.h"
+#include "cell_automaton.h"
 
 #include <cinder/app/App.h>
 #include <cinder/gl/draw.h>
 #include <cinder/gl/gl.h>
 #include <cinder/gl/scoped.h>
-#include <chrono>
 
+#include <chrono>
 #include <nlohmann/json.hpp>
 
 #include "../include/mylibrary/grid.h"
@@ -20,6 +20,7 @@ using cinder::Rectf;
 using cinder::app::KeyEvent;
 
 const char kNormalFont[] = "Times New Roman";
+const size_t kFontSize = 15;
 
 MyApp::MyApp() {
   std::ifstream i("../../../../../../resources/small_exploder.json",
@@ -29,8 +30,8 @@ MyApp::MyApp() {
     return;  // TODO error handling
   }
   if (i.fail()) {
-    std::cout << "error" << std::endl;  // return to handle error
-    return;                             // TODO error handling
+    std::cout << "error" << std::endl;
+    return;
   }
   nlohmann::json j;
   i >> j;
@@ -99,7 +100,6 @@ void MyApp::DrawOptions() {
   size_t y = 610;
   for (int i = 0; i < 3; i++) {
     cinder::gl::drawStrokedRect(Rectf(x, y, x + 100, y + 30));
-//    PrintText("option", color, {x + 40, y + 15}, size);
     x += 140;
   }
 }
@@ -120,20 +120,6 @@ void MyApp::drawGrid(std::vector<std::vector<int>>& grid) {
   }
 }
 
-//void MyApp::drawLiveCells(std::vector<std::vector<int>>& grid) {
-//  for (int i = 0; i < knum_cells; i++) {
-//    for (int j = 0; j < knum_cells; j++) {
-//      int x_coord = i * 10;
-//      int y_coord = j * 10;
-//      if (grid[i][j] == 1) {
-//        cinder::gl::color(255, 0, 0);
-//        cinder::gl::drawSolidRect(Rectf(x_coord, y_coord, x_coord + 10,
-//                                        y_coord + 10));  // TODO border missing
-//      }
-//    }
-//  }
-//}
-
 void MyApp::keyDown(KeyEvent event) {
   switch (event.getCode()) {
     case KeyEvent::KEY_1: {
@@ -148,7 +134,7 @@ void MyApp::PrintText(const std::string& text, const Color color, const cinder::
 
   auto box = cinder::TextBox()
                  .alignment(cinder::TextBox::CENTER)
-                 .font(cinder::Font("Times New Roman", 15))
+                 .font(cinder::Font(kNormalFont, kFontSize))
                  .size(size)
                  .color(color)
                  .backgroundColor(ColorA(0, 0, 0, 0))
@@ -160,4 +146,5 @@ void MyApp::PrintText(const std::string& text, const Color color, const cinder::
   const auto texture = cinder::gl::Texture::create(surface);
   cinder::gl::draw(texture, locp);
 }  // namespace myapp
+
 }
