@@ -48,3 +48,10 @@ fully read through code and clean up organization and magic numbers
 to choose their intial configuration of cells
   * Still need to decide on display of choices of cell configurations and how the
   user will make their choice. Will return to the main display of this.
+  
+####April 28, 2020
+* Added documentation to both the grid.h and cell_automaton.h files
+* Cleaned up code and removed unecessary prints and commenting
+* In progress:
+  *  Must further deal with user interaction component to cleanly allow for user to 
+  choose with initial cell configuration they want to see
