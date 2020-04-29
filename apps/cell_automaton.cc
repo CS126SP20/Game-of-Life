@@ -19,8 +19,9 @@ using cinder::ColorA;
 using cinder::Rectf;
 using cinder::app::KeyEvent;
 
-const char kNormalFont[] = "Times New Roman";
+const Color kWhite = Color(255, 255, 255);
 const size_t kFontSize = 15;
+const char kNormalFont[] = "Times New Roman";
 
 MyApp::MyApp() {
   std::ifstream i("../../../../../../resources/small_exploder.json",
@@ -66,28 +67,24 @@ void MyApp::update() {}
 void MyApp::draw() {
   static int delay_count = 0;
   static int first_call = 0;
-//  if (delay_count % 2 != 0) {
-//    delay_count++;
-//    return;
-//  }
+  if (delay_count % 2 != 0) {
+    delay_count++;
+    return;
+  }
   delay_count++;
-//  std::vector<std::vector<int>>& grid = grid_.Get_Curr_Grid(first_call != 0);
-//  first_call++;
   cinder::gl::enableAlphaBlending();
   cinder::gl::clear();
-  cinder::gl::clear(Color(255, 255, 255));
+  cinder::gl::clear(kWhite);
   const cinder::vec2 center = getWindowCenter();
-//  drawGrid(grid);
   DrawOptions();
   if (Is_File_Chosen) {
     cinder::gl::clear();
-    cinder::gl::clear(Color(255, 255, 255));
+    cinder::gl::clear(kWhite);
     std::vector<std::vector<int>>& grid = grid_.Get_Curr_Grid(first_call != 0);
     first_call++;
     drawGrid(grid);
   }
   auto time = std::chrono::system_clock::now();
-  std::cout << "get time of day " << time.time_since_epoch().count()/1000 << std::endl;
 }
 
 void MyApp::DrawOptions() {
@@ -114,7 +111,8 @@ void MyApp::drawGrid(std::vector<std::vector<int>>& grid) {
             Rectf(x_coord, y_coord, x_coord + 10, y_coord + 10));
       } else {
         cinder::gl::color(255, 0, 0);
-        cinder::gl::drawSolidRect(Rectf(x_coord, y_coord, x_coord + 10, y_coord + 10)); //TODO border missing
+        cinder::gl::drawSolidRect(Rectf(x_coord, y_coord, x_coord + 10,
+                                        y_coord + 10));  // TODO border missing
       }
     }
   }
@@ -128,8 +126,8 @@ void MyApp::keyDown(KeyEvent event) {
   }
 }
 
-void MyApp::PrintText(const std::string& text, const Color color, const cinder::ivec2& size,
-                      const cinder::vec2& loc) {
+void MyApp::PrintText(const std::string& text, const Color color,
+                      const cinder::ivec2& size, const cinder::vec2& loc) {
   cinder::gl::color(color);
 
   auto box = cinder::TextBox()
@@ -147,4 +145,4 @@ void MyApp::PrintText(const std::string& text, const Color color, const cinder::
   cinder::gl::draw(texture, locp);
 }  // namespace myapp
 
-}
+}  // namespace myapp

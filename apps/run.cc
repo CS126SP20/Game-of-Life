@@ -26,7 +26,6 @@ void SetUp(App::Settings* settings) {
   settings->setTitle("Game of Life");
 
   std::srand(std::time(0));
-  std::cout << "main set up called" << std::endl;
 }
 
 }  // namespace myapp
@@ -35,5 +34,3 @@ void SetUp(App::Settings* settings) {
 CINDER_APP(myapp::MyApp,
            RendererGl(RendererGl::Options().msaa(myapp::kSamples)),
            myapp::SetUp)
-
-// CINDER_APP(myapp::MyApp, RendererGl)
