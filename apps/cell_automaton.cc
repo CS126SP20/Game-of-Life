@@ -23,6 +23,9 @@ const Color kWhite = Color(255, 255, 255);
 const size_t kFontSize = 15;
 const char kNormalFont[] = "Times New Roman";
 
+/*
+ * Constructor dealing with reading from json file. Creates a json object,
+ * reads coordinates from file, and fills a vector in with grid information */
 MyApp::MyApp() {
   std::ifstream i("../../../../../../resources/small_exploder.json",
                   std::fstream::in);
@@ -55,6 +58,10 @@ MyApp::MyApp() {
   }
 }
 
+/*
+ * Method setting up the display and sets up the grid object to be set to
+ * passed dimension and filled with the json coordinates
+ */
 void MyApp::setup() {
   cinder::gl::enableDepthWrite();
   cinder::gl::enableDepthRead();
@@ -64,6 +71,11 @@ void MyApp::setup() {
 
 void MyApp::update() {}
 
+/*
+ * Method dealing with all the draw functionality throughout the project.
+ * Calculates the delay to have time between the drawing of cell
+ * configurations. (in progress) will deal with which configuration to
+ * draw depending on user's choice */
 void MyApp::draw() {
   static int delay_count = 0;
   static int first_call = 0;
@@ -87,6 +99,8 @@ void MyApp::draw() {
   auto time = std::chrono::system_clock::now();
 }
 
+/* Method in progress to draw buttons for the user to choose with initial
+ * configurations of cells they want to see the automaton for */
 void MyApp::DrawOptions() {
   cinder::gl::color(0, 0, 0);
   const Color color = Color::black();
@@ -100,6 +114,9 @@ void MyApp::DrawOptions() {
     x += 140;
   }
 }
+
+/* Helper method to draw the empty grid and loop through to fill in the
+ * live cells*/
 void MyApp::drawGrid(std::vector<std::vector<int>>& grid) {
   for (int i = 0; i < knum_cells; i++) {
     for (int j = 0; j < knum_cells; j++) {
@@ -118,6 +135,9 @@ void MyApp::drawGrid(std::vector<std::vector<int>>& grid) {
   }
 }
 
+/* Method dealing with user choice of file. (in progress) checks if user
+ * presses down on "1" key and eventually other numbers to choose json
+ * file with initial configuration of cells */
 void MyApp::keyDown(KeyEvent event) {
   switch (event.getCode()) {
     case KeyEvent::KEY_1: {
@@ -126,6 +146,7 @@ void MyApp::keyDown(KeyEvent event) {
   }
 }
 
+/* Method to display text and add text boxes to GUI */
 void MyApp::PrintText(const std::string& text, const Color color,
                       const cinder::ivec2& size, const cinder::vec2& loc) {
   cinder::gl::color(color);
