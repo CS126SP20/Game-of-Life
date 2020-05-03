@@ -13,10 +13,13 @@ namespace myapp {
 const size_t kgrid_dimension = 600;
 
 /* Constant for dimension of each individual cell */
-const size_t kcell_size = 10;
+const size_t kcell_size = 10; //TODO naming
+const std::string kGlider = "../../../../../../resources/glider.json";
+const std::string kSmallExploder = "../../../../../../resources/small_exploder.json";
+const std::string kTenCellRow = "../../../../../../resources/ten_cell_row.json";
 
 /* //TODO not in use */
-const size_t knum_cells = kgrid_dimension/kcell_size;
+const size_t knum_cells = kgrid_dimension/kcell_size; //TODO format for const
 
 class MyApp : public cinder::app::App {
  public:
@@ -57,6 +60,8 @@ class MyApp : public cinder::app::App {
   /* Grid object created to hold json coordinates */
   mylibrary::Grid grid_;
 
+  /* //TODO */
+  void ParseFile(std::string file_name);
   /* Helper method to draw the empty grid and loop through to fill in the
    * live cells*/
   void drawGrid(std::vector<std::vector<int>>& grid);
@@ -65,7 +70,7 @@ class MyApp : public cinder::app::App {
 
   /* Method in progress to draw buttons for the user to choose with initial
    * configurations of cells they want to see the automaton for */
-  void DrawOptions();
+  void DrawInitialScreen();
 
   /* // TODO not in use*/
   std::vector<std::vector<int> > filled_grid_;

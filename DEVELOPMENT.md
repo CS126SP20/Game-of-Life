@@ -2,7 +2,7 @@
 
 ---
 
-####April 18, 2020
+#### April 18, 2020
 * Added my external library of choice (nlohmann json) to the project configuration
 * Created a basic exectuable and initializing a base cinder app
 * Set up the initial 60 x 60 grid on GUI to display the cells

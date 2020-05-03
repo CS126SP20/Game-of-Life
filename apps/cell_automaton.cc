@@ -19,9 +19,13 @@ using cinder::ColorA;
 using cinder::Rectf;
 using cinder::app::KeyEvent;
 
+using namespace ci;
+using namespace ci::app;
+
 const Color kWhite = Color(255, 255, 255);
-const size_t kFontSize = 15;
+const size_t kFontSize = 25;
 const char kNormalFont[] = "Times New Roman";
+const std::vector<std::string> configuration_names{"Glider", "Small Exploder", "Ten Cell Row"};
 
 /*
  * Constructor dealing with reading from json file. Creates a json object,
@@ -58,6 +62,42 @@ MyApp::MyApp() {
   }
 }
 
+/**
+ * //TODO
+ */
+void MyApp::ParseFile(std::string file_name) {
+  std::ifstream i(file_name, std::fstream::in);
+  std::cout << "hit parse file" << std::endl;
+  if (!i.is_open()) {
+    std::cout << "failed to open file " << '\n';
+    return;  // TODO error handling
+  }
+  if (i.fail()) {
+    std::cout << "error" << std::endl;
+    return;
+  }
+  nlohmann::json j;
+  i >> j;
+  std::cout << "json content:" << std::endl
+            << j.at("seeds").at(0).at("x") << std::endl;
+
+  for (auto& x : j["seeds"].items()) {
+    int num_x = x.value()["x"];
+    int num_y = x.value()["y"];
+    std::vector<int> coordinates = {num_x, num_y};
+
+    filled_grid_.push_back(coordinates);
+    std::cout << "x is " << num_x << " y is " << num_y << std::endl;
+  }
+
+  std::cout << "json coordinates " << std::endl;
+  for (int i = 0; i < filled_grid_.size(); i++) {
+    std::cout << filled_grid_[i][0] << " " << filled_grid_[i][1] << " ";
+    std::cout << std::endl;
+  }
+  std::cout << "got json info" << std::endl;
+}
+
 /*
  * Method setting up the display and sets up the grid object to be set to
  * passed dimension and filled with the json coordinates
@@ -79,16 +119,16 @@ void MyApp::update() {}
 void MyApp::draw() {
   static int delay_count = 0;
   static int first_call = 0;
-  if (delay_count % 2 != 0) {
-    delay_count++;
-    return;
-  }
+//  if (delay_count % 2 != 0) {
+//    delay_count++;
+//    return;
+//  }
   delay_count++;
   cinder::gl::enableAlphaBlending();
   cinder::gl::clear();
   cinder::gl::clear(kWhite);
   const cinder::vec2 center = getWindowCenter();
-  DrawOptions();
+  DrawInitialScreen();
   if (Is_File_Chosen) {
     cinder::gl::clear();
     cinder::gl::clear(kWhite);
@@ -101,17 +141,22 @@ void MyApp::draw() {
 
 /* Method in progress to draw buttons for the user to choose with initial
  * configurations of cells they want to see the automaton for */
-void MyApp::DrawOptions() {
+void MyApp::DrawInitialScreen() {
   cinder::gl::color(0, 0, 0);
   const Color color = Color::black();
-  const cinder::vec2 location = {60, 625};
-  const cinder::ivec2 size = {70, 20};
-  PrintText("1. glider", color, size, location);
+  const cinder::ivec2 size = {100, 40};
+  cinder::vec2 location = {40, 420};
+
+  PrintText("Welcome to the Game of Life!\n Please press the number of the cell "
+                "automaton\n you want to see",
+                color, {300, 150}, {300, 270});
   size_t x = 20;
-  size_t y = 610;
-  for (int i = 0; i < 3; i++) {
-    cinder::gl::drawStrokedRect(Rectf(x, y, x + 100, y + 30));
-    x += 140;
+  size_t y = 390;
+  for (int i = 1; i < 4; i++) {
+    cinder::gl::drawStrokedRect(Rectf(x, y, x + 170, y + 70));
+    x += 190;
+    PrintText(std::to_string(i) + ". " + configuration_names[i - 1], color, size, location);
+    location.x += 200;
   }
 }
 
@@ -142,6 +187,15 @@ void MyApp::keyDown(KeyEvent event) {
   switch (event.getCode()) {
     case KeyEvent::KEY_1: {
       Is_File_Chosen = true;
+//      ParseFile(kGlider);
+    }
+    case KeyEvent::KEY_2: {
+      Is_File_Chosen = true;
+//      ParseFile(kSmallExploder);
+    }
+    case KeyEvent::KEY_3: {
+      Is_File_Chosen = true;
+//      ParseFile(kTenCellRow);
     }
   }
 }

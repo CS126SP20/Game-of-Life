@@ -20,7 +20,7 @@ namespace mylibrary {
  * be calculated
  * @return: returns the grid containing the current cell configuration
  */
-std::vector<std::vector<int> >& Grid::Get_Curr_Grid(bool calculate_next_gen) {
+std::vector<std::vector<int> >& Grid::Get_Curr_Grid(bool calculate_next_gen) { //TODO take out the spaces after >
   if (calculate_next_gen) {
     if (gen_id_ % 2 == 0) {
       CalculateNextGeneration(grids[0], grids[1]);
@@ -72,7 +72,7 @@ void Grid::SetDimensionAndFillSeeds(size_t dimension,
  * or 0's. Method is called in the helper method FillGrid.
  * @param passed_grid_: grid to be printed
  */
-void Grid::PrintGrid(std::vector<std::vector<int> > passed_grid_) {
+void Grid::PrintGrid(std::vector<std::vector<int> > passed_grid_) { //TODO can use size_t instead for vector
   for (int i = 0; i < passed_grid_.size(); i++) {
     for (int j = 0; j < passed_grid_.size(); j++) {
       std::cout << passed_grid_[i][j] << " ";
@@ -132,7 +132,7 @@ void Grid::CalculateNextGeneration(std::vector<std::vector<int> >& curr_gen_,
  * @return: method returns the numbers of neighbors of a particular cell
  */
 int Grid::CountNeighbors(std::vector<std::vector<int> >& grid, int x, int y) {
-  int num_neighbors = 0;
+  int num_neighbors = 0; //tODO size_t
   for (int i = -1; i < 2; i++) {
     for (int j = -1; j < 2; j++) {
       num_neighbors += grid[x + i][y + j];  // 0's and 1's so add for sum

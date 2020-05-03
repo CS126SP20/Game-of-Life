@@ -24,7 +24,6 @@ void SetUp(App::Settings* settings) {
   settings->setFrameRate(1.0);
   settings->setResizable(false);
   settings->setTitle("Game of Life");
-
   std::srand(std::time(0));
 }
 
