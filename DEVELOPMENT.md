@@ -55,3 +55,13 @@ to choose their initial configuration of cells
 * In progress:
   *  Must further deal with user interaction component to cleanly allow for user to 
   choose with initial cell configuration they want to see
+  
+#### May 2, 2020
+* Focused on UI component to clean up initial display
+* Created a type of button to allow for user to choose the initial configuration they want
+  * Set up screen to display heading and options
+
+#### May 3, 2020
+* Cleaned up code fixing syntax and spacing issues
+* Continued to work on display for user and how options are set up
+* Added documentation and fixed commenting

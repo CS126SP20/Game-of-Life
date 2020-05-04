@@ -24,9 +24,7 @@ const size_t knum_cells = kgrid_dimension/kcell_size; //TODO format for const
 class MyApp : public cinder::app::App {
  public:
 
-  /*
-   * Constructor dealing with reading from json file. Creates a json object,
-   * reads coordinates from file, and fills a vector in with grid information */
+  /* Default Constructor */
   MyApp();
 
   /*
@@ -60,13 +58,18 @@ class MyApp : public cinder::app::App {
   /* Grid object created to hold json coordinates */
   mylibrary::Grid grid_;
 
-  /* //TODO */
+  /* This method deals with parsing the json file of the initial configuration
+   * the user chooses. After opening the file, the coordinates are stored into
+   * a vector and the grid object is populated with this information. The flag
+   * for if a file was chosen is set to true to signify that the grid can be
+   * created and drawn as the user has chosen to see a configuration.
+   * @param file_name- name of file user chooses
+   */
   void ParseFile(std::string file_name);
+
   /* Helper method to draw the empty grid and loop through to fill in the
    * live cells*/
   void drawGrid(std::vector<std::vector<int>>& grid);
-
-//  void drawLiveCells(std::vector<std::vector<int>>& grid);
 
   /* Method in progress to draw buttons for the user to choose with initial
    * configurations of cells they want to see the automaton for */

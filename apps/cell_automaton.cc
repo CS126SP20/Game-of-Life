@@ -28,13 +28,15 @@ const char kNormalFont[] = "Times New Roman";
 const std::vector<std::string> configuration_names{"Glider", "Small Exploder",
                                                    "Ten Cell Row"};
 
-/*
- * Constructor dealing with reading from json file. Creates a json object,
- * reads coordinates from file, and fills a vector in with grid information */
+/* Default Constructor */
 MyApp::MyApp() {}
 
-/**
- * //TODO
+/* This method deals with parsing the json file of the initial configuration
+ * the user chooses. After opening the file, the coordinates are stored into
+ * a vector and the grid object is populated with this information. The flag
+ * for if a file was chosen is set to true to signify that the grid can be
+ * created and drawn as the user has chosen to see a configuration.
+ * @param file_name- name of file user chooses
  */
 void MyApp::ParseFile(std::string file_name) {
   std::ifstream i(file_name, std::fstream::in);

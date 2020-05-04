@@ -6,8 +6,6 @@
 
 namespace mylibrary {
 
-// TODO ensure dimension is set before this call
-
 /*
  * Helper method to check which grid to use as the current vs. the next
  * generation. This method facilitates the ping pong effect between the two
