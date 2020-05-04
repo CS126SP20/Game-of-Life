@@ -31,35 +31,7 @@ const std::vector<std::string> configuration_names{"Glider", "Small Exploder", "
  * Constructor dealing with reading from json file. Creates a json object,
  * reads coordinates from file, and fills a vector in with grid information */
 MyApp::MyApp() {
-//  std::ifstream i("../../../../../../resources/small_exploder.json",
-//                  std::fstream::in);
-//  if (!i.is_open()) {
-//    std::cout << "failed to open file " << '\n';
-//    return;  // TODO error handling
-//  }
-//  if (i.fail()) {
-//    std::cout << "error" << std::endl;
-//    return;
-//  }
-//  nlohmann::json j;
-//  i >> j;
-//  std::cout << "json content:" << std::endl
-//            << j.at("seeds").at(0).at("x") << std::endl;
-//
-//  for (auto& x : j["seeds"].items()) {
-//    int num_x = x.value()["x"];
-//    int num_y = x.value()["y"];
-//    std::vector<int> coordinates = {num_x, num_y};
-//
-//    filled_grid_.push_back(coordinates);
-//    std::cout << "x is " << num_x << " y is " << num_y << std::endl;
-//  }
-//
-//  std::cout << "json coordinates " << std::endl;
-//  for (int i = 0; i < filled_grid_.size(); i++) {
-//    std::cout << filled_grid_[i][0] << " " << filled_grid_[i][1] << " ";
-//    std::cout << std::endl;
-//  }
+
 }
 
 /**
@@ -67,19 +39,16 @@ MyApp::MyApp() {
  */
 void MyApp::ParseFile(std::string file_name) {
   std::ifstream i(file_name, std::fstream::in);
-  std::cout << "hit parse file" << std::endl;
   if (!i.is_open()) {
-    std::cout << "failed to open file " << '\n';
-    return;  // TODO error handling
+    std::cout << "Failed to Open File " << '\n';
+    return;
   }
   if (i.fail()) {
-    std::cout << "error" << std::endl;
+    std::cout << "Error in File" << std::endl;
     return;
   }
   nlohmann::json j;
   i >> j;
-  std::cout << "json content:" << std::endl
-            << j.at("seeds").at(0).at("x") << std::endl;
 
   for (auto& x : j["seeds"].items()) {
     int num_x = x.value()["x"];
@@ -87,15 +56,8 @@ void MyApp::ParseFile(std::string file_name) {
     std::vector<int> coordinates = {num_x, num_y};
 
     filled_grid_.push_back(coordinates);
-    std::cout << "x is " << num_x << " y is " << num_y << std::endl;
   }
 
-  std::cout << "json coordinates " << std::endl;
-  for (int i = 0; i < filled_grid_.size(); i++) {
-    std::cout << filled_grid_[i][0] << " " << filled_grid_[i][1] << " ";
-    std::cout << std::endl;
-  }
-  std::cout << "got json info" << std::endl;
   grid_.SetDimensionAndFillSeeds(knum_cells, filled_grid_);
   Is_File_Chosen = true;
 }
@@ -107,7 +69,6 @@ void MyApp::ParseFile(std::string file_name) {
 void MyApp::setup() {
   cinder::gl::enableDepthWrite();
   cinder::gl::enableDepthRead();
-  std::cout << "frame rate " << getFrameRate() << std::endl;
 }
 
 void MyApp::update() {}
@@ -146,7 +107,7 @@ void MyApp::DrawInitialScreen() {
   cinder::gl::color(0, 0, 0);
   const Color color = Color::black();
   const cinder::ivec2 size = {100, 40};
-  cinder::vec2 location = {40, 420};
+  cinder::vec2 location = {50, 420};
 
   PrintText("Welcome to the Game of Life!\n Please press the number of the cell "
                 "automaton\n you want to see",
