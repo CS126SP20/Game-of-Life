@@ -67,7 +67,7 @@ class Grid {
   size_t grid_dimension_;
 
   /*
-   * Continously updates id of grids to allow for switching between the grid
+   * Continuously updates id of grids to allow for switching between the grid
    * of the current generation and the next generation. Is incremented every
    * time the next generation is calculated to allow for the current grid to
    * be updated as the cycle continues. */

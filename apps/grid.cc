@@ -20,7 +20,7 @@ namespace mylibrary {
  * be calculated
  * @return: returns the grid containing the current cell configuration
  */
-std::vector<std::vector<int> >& Grid::Get_Curr_Grid(bool calculate_next_gen) { //TODO take out the spaces after >
+std::vector<std::vector<int>>& Grid::Get_Curr_Grid(bool calculate_next_gen) {
   if (calculate_next_gen) {
     if (gen_id_ % 2 == 0) {
       CalculateNextGeneration(grids[0], grids[1]);
@@ -43,7 +43,7 @@ std::vector<std::vector<int> >& Grid::Get_Curr_Grid(bool calculate_next_gen) { /
  * @param seed: vector containing coordinates of cells from json file
  */
 void Grid::SetDimensionAndFillSeeds(size_t dimension,
-                                    std::vector<std::vector<int> > seed) {
+                                    std::vector<std::vector<int>> seed) {
   grid_dimension_ = dimension;
 
   // first level
@@ -72,7 +72,7 @@ void Grid::SetDimensionAndFillSeeds(size_t dimension,
  * or 0's. Method is called in the helper method FillGrid.
  * @param passed_grid_: grid to be printed
  */
-void Grid::PrintGrid(std::vector<std::vector<int> > passed_grid_) { //TODO can use size_t instead for vector
+void Grid::PrintGrid(std::vector<std::vector<int>> passed_grid_) { //TODO can use size_t instead for vector
   for (int i = 0; i < passed_grid_.size(); i++) {
     for (int j = 0; j < passed_grid_.size(); j++) {
       std::cout << passed_grid_[i][j] << " ";
@@ -96,8 +96,8 @@ void Grid::PrintGrid(std::vector<std::vector<int> > passed_grid_) { //TODO can u
  * @param curr_gen_: current generation of cell configurations
  * @param next_gen_: next generation of cell configurations
  */
-void Grid::CalculateNextGeneration(std::vector<std::vector<int> >& curr_gen_,
-                                   std::vector<std::vector<int> >& next_gen_) {
+void Grid::CalculateNextGeneration(std::vector<std::vector<int>>& curr_gen_,
+                                   std::vector<std::vector<int>>& next_gen_) {
   for (int i = 0; i < curr_gen_.size(); i++) {
     for (int j = 0; j < curr_gen_.size(); j++) {
       int state = curr_gen_[i][j];
@@ -131,7 +131,7 @@ void Grid::CalculateNextGeneration(std::vector<std::vector<int> >& curr_gen_,
  * @param y: y coordinate of the cell
  * @return: method returns the numbers of neighbors of a particular cell
  */
-int Grid::CountNeighbors(std::vector<std::vector<int> >& grid, int x, int y) {
+int Grid::CountNeighbors(std::vector<std::vector<int>>& grid, int x, int y) {
   int num_neighbors = 0; //tODO size_t
   for (int i = -1; i < 2; i++) {
     for (int j = -1; j < 2; j++) {

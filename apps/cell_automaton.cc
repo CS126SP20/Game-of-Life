@@ -25,14 +25,13 @@ using namespace ci::app;
 const Color kWhite = Color(255, 255, 255);
 const size_t kFontSize = 25;
 const char kNormalFont[] = "Times New Roman";
-const std::vector<std::string> configuration_names{"Glider", "Small Exploder", "Ten Cell Row"};
+const std::vector<std::string> configuration_names{"Glider", "Small Exploder",
+                                                   "Ten Cell Row"};
 
 /*
  * Constructor dealing with reading from json file. Creates a json object,
  * reads coordinates from file, and fills a vector in with grid information */
-MyApp::MyApp() {
-
-}
+MyApp::MyApp() {}
 
 /**
  * //TODO
@@ -81,10 +80,10 @@ void MyApp::update() {}
 void MyApp::draw() {
   static int delay_count = 0;
   static int first_call = 0;
-//  if (delay_count % 2 != 0) {
-//    delay_count++;
-//    return;
-//  }
+  //  if (delay_count % 2 != 0) {
+  //    delay_count++;
+  //    return;
+  //  }
   delay_count++;
   cinder::gl::enableAlphaBlending();
   cinder::gl::clear();
@@ -106,19 +105,21 @@ void MyApp::draw() {
 void MyApp::DrawInitialScreen() {
   cinder::gl::color(0, 0, 0);
   const Color color = Color::black();
-  const cinder::ivec2 size = {100, 40};
-  cinder::vec2 location = {50, 420};
+  const cinder::ivec2 size = {100, 60};
+  cinder::vec2 location = {80, 425};
 
-  PrintText("Welcome to the Game of Life!\n Please press the number of the cell "
-                "automaton\n you want to see",
-                color, {300, 150}, {300, 270});
+  PrintText(
+      "Welcome to the Game of Life!\n Please press the number of the cell "
+      "automaton\n you want to see",
+      color, {300, 150}, {300, 270});
   size_t x = 20;
   size_t y = 390;
   for (int i = 1; i < 4; i++) {
     cinder::gl::drawStrokedRect(Rectf(x, y, x + 170, y + 70));
     x += 190;
-    PrintText(std::to_string(i) + ". " + configuration_names[i - 1], color, size, location);
-    location.x += 200;
+    PrintText(std::to_string(i) + ". " + configuration_names[i - 1], color,
+              size, location);
+    location.x += 190;
   }
 }
 
@@ -135,8 +136,8 @@ void MyApp::drawGrid(std::vector<std::vector<int>>& grid) {
             Rectf(x_coord, y_coord, x_coord + 10, y_coord + 10));
       } else {
         cinder::gl::color(255, 0, 0);
-        cinder::gl::drawSolidRect(Rectf(x_coord, y_coord, x_coord + 10,
-                                        y_coord + 10));  // TODO border missing
+        cinder::gl::drawSolidRect(
+            Rectf(x_coord, y_coord, x_coord + 10, y_coord + 10));
       }
     }
   }
