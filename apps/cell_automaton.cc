@@ -107,7 +107,6 @@ void MyApp::ParseFile(std::string file_name) {
 void MyApp::setup() {
   cinder::gl::enableDepthWrite();
   cinder::gl::enableDepthRead();
-//  grid_.SetDimensionAndFillSeeds(knum_cells, filled_grid_);
   std::cout << "frame rate " << getFrameRate() << std::endl;
 }
 
