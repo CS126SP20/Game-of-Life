@@ -54,6 +54,9 @@ class MyApp : public cinder::app::App {
 
   /* Boolean value to check if user chose a json file */
   bool Is_File_Chosen = false;
+
+  /* Boolean value to check if pauses the automaton */
+  bool Is_Paused = false;
  private:
   /* Grid object created to hold json coordinates */
   mylibrary::Grid grid_;
@@ -69,7 +72,7 @@ class MyApp : public cinder::app::App {
 
   /* Helper method to draw the empty grid and loop through to fill in the
    * live cells*/
-  void drawGrid(std::vector<std::vector<int>>& grid);
+  void drawFilledGrid(std::vector<std::vector<int>>& grid);
 
   /* Method in progress to draw buttons for the user to choose with initial
    * configurations of cells they want to see the automaton for */

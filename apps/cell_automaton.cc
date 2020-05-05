@@ -95,9 +95,16 @@ void MyApp::draw() {
   if (Is_File_Chosen) {
     cinder::gl::clear();
     cinder::gl::clear(kWhite);
-    std::vector<std::vector<int>>& grid = grid_.Get_Curr_Grid(first_call != 0);
-    first_call++;
-    drawGrid(grid);
+    if (Is_Paused) {
+        std::vector<std::vector<int>>& grid =
+                grid_.Get_Curr_Grid(false);
+        drawFilledGrid(grid);
+    } else {
+      std::vector<std::vector<int>>& grid =
+          grid_.Get_Curr_Grid(first_call != 0);
+      first_call++;
+      drawFilledGrid(grid);
+    }
   }
   auto time = std::chrono::system_clock::now();
 }
@@ -127,7 +134,7 @@ void MyApp::DrawInitialScreen() {
 
 /* Helper method to draw the empty grid and loop through to fill in the
  * live cells*/
-void MyApp::drawGrid(std::vector<std::vector<int>>& grid) {
+void MyApp::drawFilledGrid(std::vector<std::vector<int>>& grid) {
   for (int i = 0; i < knum_cells; i++) {
     for (int j = 0; j < knum_cells; j++) {
       int x_coord = i * 10;
@@ -160,6 +167,16 @@ void MyApp::keyDown(KeyEvent event) {
     }
     case KeyEvent::KEY_3: {
       ParseFile(kTenCellRow);
+      break;
+    }
+    case KeyEvent::KEY_p: {
+      if (Is_File_Chosen) {
+        Is_Paused = true;
+      }
+      break;
+    }
+    case KeyEvent::KEY_r: {
+      Is_Paused = false;
       break;
     }
   }
