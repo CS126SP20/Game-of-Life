@@ -52,23 +52,9 @@ class Grid {
   void SetDimensionAndFillSeeds(int dimension,
                                 std::vector<std::vector<int>> seed);
 
-  /*
-   * Helper method dealing with the main logic of calculating the next generation
-   * of cells. Method is passed in two grids- the current generation of cells to
-   * use for cell information and the next generation to be calculated and filled
-   * in with the cells at their calculated position. The calculations follow the
-   * fundamental rules of the Game of life:
-   * 1. Any live cell with fewer than two live neighbours dies.
-   * 2. Any live cell with two or three live neighbours lives.
-   * 3. Any live cell with more than three live neighbours dies.
-   * 4. Any dead cell with exactly three live neighbours becomes a live cell.
-   * At the end of the method, the gen_id_ is incremented to
-   * allow the switch between grids by the next call.
-   * @param curr_gen_: current generation of cell configurations
-   * @param next_gen_: next generation of cell configurations
-   */
-  void CalculateNextGeneration(std::vector<std::vector<int>>& curr_gen_,
-                               std::vector<std::vector<int>>& next_gen_);
+  void ResetGrid();
+
+  // todo function to clear grid - set all to 0
  private:
   /* Private variable to store the passed in dimension of the grid */
   size_t grid_dimension_;
@@ -88,6 +74,24 @@ class Grid {
    * @return: Boolean for if the grids are the same in each position
    */
   bool DidGridChange();
+
+    /*
+   * Helper method dealing with the main logic of calculating the next generation
+   * of cells. Method is passed in two grids- the current generation of cells to
+   * use for cell information and the next generation to be calculated and filled
+   * in with the cells at their calculated position. The calculations follow the
+   * fundamental rules of the Game of life:
+   * 1. Any live cell with fewer than two live neighbours dies.
+   * 2. Any live cell with two or three live neighbours lives.
+   * 3. Any live cell with more than three live neighbours dies.
+   * 4. Any dead cell with exactly three live neighbours becomes a live cell.
+   * At the end of the method, the gen_id_ is incremented to
+   * allow the switch between grids by the next call.
+   * @param curr_gen_: current generation of cell configurations
+   * @param next_gen_: next generation of cell configurations
+   */
+  void CalculateNextGeneration(std::vector<std::vector<int>>& curr_gen_,
+                               std::vector<std::vector<int>>& next_gen_);
 
   /*
    * Helper method to count the number of surrounding cells around a particular

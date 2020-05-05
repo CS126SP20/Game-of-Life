@@ -151,4 +151,14 @@ size_t Grid::CountNeighbors(std::vector<std::vector<int>>& grid, int x, int y) {
   return num_neighbors;
 }
 
+void Grid::ResetGrid() {
+  for (int i = 0; i < grid_dimension_; i++) {
+    for (int j = 0; j < grid_dimension_; j++) {
+      grids_[0][i][j] = 0;
+      grids_[1][i][j] = 0;
+    }
+  }
+  gen_id_ = 0;
+}
+
 }  // namespace mylibrary

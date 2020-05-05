@@ -22,10 +22,10 @@ using cinder::app::KeyEvent;
 const Color kWhite = Color(255, 255, 255);
 const size_t kFontSize = 25;
 const char kNormalFont[] = "Times New Roman";
-const std::vector<std::string> configuration_names{"Glider", "Small Exploder",
+const std::vector<std::string> kConfigurationNames{"Glider", "Small Exploder",
                                                    "Ten Cell Row"};
-const std::vector<std::string> option_names{"Pause: 'p'", "Resume: 'r'",
-                                                   "Restart: 'x'"};
+const std::vector<std::string> kOptionNames{"Pause: 'p'", "Resume: 'r'",
+                                            "Restart: 'x'"};
 
 /* Default Constructor */
 MyApp::MyApp() {}
@@ -38,6 +38,7 @@ MyApp::MyApp() {}
  * @param file_name- name of file user chooses
  */
 void MyApp::ParseFile(std::string file_name) {
+  std::vector<std::vector<int>> filled_grid_;
   std::ifstream i(file_name, std::fstream::in);
   if (!i.is_open()) {
     std::cout << "Failed to Open File " << '\n';
@@ -59,6 +60,7 @@ void MyApp::ParseFile(std::string file_name) {
   }
 
   grid_.SetDimensionAndFillSeeds(kNumCells, filled_grid_);
+  first_call = 0;
   Is_File_Chosen = true;
 }
 
@@ -78,11 +80,10 @@ void MyApp::setup() {
  * draw depending on user's choice */
 void MyApp::draw() {
   static int delay_count = 0;
-  static int first_call = 0;
-  //  if (delay_count % 2 != 0) {
-  //    delay_count++;
-  //    return;
-  //  }
+  if (delay_count % 2 != 0) {
+    delay_count++;
+    return;
+  }
   delay_count++;
   cinder::gl::enableAlphaBlending();
   cinder::gl::clear();
@@ -93,20 +94,22 @@ void MyApp::draw() {
   if (Is_File_Chosen) {
     cinder::gl::clear();
     cinder::gl::clear(kWhite);
-    if (Is_Paused || first_call == 0) { // Is_Paused cannot be set before first call
-        std::vector<std::vector<int>>& grid =
-                grid_.GetCurrentGrid();
-        drawFilledGrid(grid);
-        if (first_call == 0) {
-          first_call++;
-        }
+    if (Is_Paused ||
+        first_call == 0) {  // Is_Paused cannot be set before first call
+      std::vector<std::vector<int>>& grid = grid_.GetCurrentGrid();
+      drawFilledGrid(grid);
+      if (first_call == 0) {
+        first_call++;
+      }
     } else {
-        std::vector<std::vector<int>>& grid =
-            grid_.GetCurrentGrid(did_gen_change);
-        if (!did_gen_change) {
-          PrintText("The pattern has stabilized.\n Press 'x' to see another automaton.", Color::black(), {300, 90}, {300, 520});
-        }
-        drawFilledGrid(grid);
+      std::vector<std::vector<int>>& grid =
+          grid_.GetCurrentGrid(did_gen_change);
+      if (!did_gen_change) {  // TODO magic nums
+        PrintText(
+            "The pattern has stabilized.\n Press 'x' to see another automaton.",
+            Color::black(), {300, 90}, {300, 520});
+      }
+      drawFilledGrid(grid);
     }
   }
   auto time = std::chrono::system_clock::now();
@@ -129,7 +132,7 @@ void MyApp::DrawInitialScreen() {
   for (int i = 1; i < 4; i++) {
     cinder::gl::drawStrokedRect(Rectf(x, y, x + 170, y + 70));
     x += 190;
-    PrintText(std::to_string(i) + ". " + configuration_names[i - 1], color,
+    PrintText(std::to_string(i) + ". " + kConfigurationNames[i - 1], color,
               size, location);
     location.x += 190;
   }
@@ -146,8 +149,7 @@ void MyApp::DrawOptions() {
   for (int i = 0; i < 3; i++) {
     cinder::gl::drawStrokedRect(Rectf(x, y, x + 170, y + 40));
     x += 190;
-    PrintText(option_names[i], color,
-              size, location);
+    PrintText(kOptionNames[i], color, size, location);
     location.x += 210;
   }
 }
@@ -201,7 +203,9 @@ void MyApp::keyDown(KeyEvent event) {
       break;
     }
     case KeyEvent::KEY_x: {
+      grid_.ResetGrid();
       cinder::gl::clear();
+      Is_Paused = false;
       Is_File_Chosen = false;
       break;
     }

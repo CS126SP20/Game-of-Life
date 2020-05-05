@@ -51,8 +51,9 @@ class MyApp : public cinder::app::App {
   /* Boolean value to check if user chose a json file */
   bool Is_File_Chosen = false;
 
-  /* Boolean value to check if pauses the automaton */
+  /* Boolean value to check if user pauses the automaton */
   bool Is_Paused = false;
+
  private:
   /* Grid object created to hold json coordinates */
   mylibrary::Grid grid_;
@@ -80,7 +81,10 @@ class MyApp : public cinder::app::App {
 
   /* Vector holding initial coordinates from json file to be passed in when
    * creating grid object */
-  std::vector<std::vector<int> > filled_grid_;
+//  std::vector<std::vector<int>> filled_grid_;
+
+  size_t first_call = 0;
+
 };
 
 }  // namespace myapp
