@@ -203,6 +203,11 @@ void MyApp::keyDown(KeyEvent event) {
       Is_Paused = false;
       break;
     }
+    case KeyEvent::KEY_x: {
+      cinder::gl::clear();
+      Is_File_Chosen = false;
+      break;
+    }
   }
 }
 
@@ -224,6 +229,6 @@ void MyApp::PrintText(const std::string& text, const Color color,
   const auto surface = box.render();
   const auto texture = cinder::gl::Texture::create(surface);
   cinder::gl::draw(texture, locp);
-}  // namespace myapp
+}
 
 }  // namespace myapp
