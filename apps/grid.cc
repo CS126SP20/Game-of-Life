@@ -43,7 +43,7 @@ std::vector<std::vector<int>>& Grid::Get_Curr_Grid(bool& did_gen_change) {
  * @param dimension: passed in size of the grid
  * @param seed: vector containing coordinates of cells from json file
  */
-void Grid::SetDimensionAndFillSeeds(size_t dimension,
+void Grid::SetDimensionAndFillSeeds(int dimension,
                                     std::vector<std::vector<int>> seed) {
   grid_dimension_ = dimension;
 
@@ -78,19 +78,6 @@ bool Grid::DidGridChange() {
   }
   return false;
 }
-/*
- * Helper method to print out the grid after it has been filled with 1's
- * or 0's. Method is called in the helper method FillGrid.
- * @param passed_grid_: grid to be printed
- */
-void Grid::PrintGrid(std::vector<std::vector<int>> passed_grid_) { //TODO can use size_t instead for vector
-  for (int i = 0; i < passed_grid_.size(); i++) {
-    for (int j = 0; j < passed_grid_.size(); j++) {
-      std::cout << passed_grid_[i][j] << " ";
-    }
-    std::cout << std::endl;
-  }
-}
 
 /*
  * Helper method dealing with the main logic of calculating the next generation
@@ -117,7 +104,7 @@ void Grid::CalculateNextGeneration(std::vector<std::vector<int>>& curr_gen_,
           j == curr_gen_.size() - 1) {
         next_gen_[i][j] = state;
       } else {
-        int num_neighbors = CountNeighbors(curr_gen_, i, j);
+        size_t num_neighbors = CountNeighbors(curr_gen_, i, j);
         if (state == 1 && num_neighbors < 2) {
           next_gen_[i][j] = 0;
         } else if (state == 1 && num_neighbors > 3) {
@@ -142,8 +129,8 @@ void Grid::CalculateNextGeneration(std::vector<std::vector<int>>& curr_gen_,
  * @param y: y coordinate of the cell
  * @return: method returns the numbers of neighbors of a particular cell
  */
-int Grid::CountNeighbors(std::vector<std::vector<int>>& grid, int x, int y) {
-  int num_neighbors = 0; //tODO size_t
+size_t Grid::CountNeighbors(std::vector<std::vector<int>>& grid, int x, int y) {
+  size_t num_neighbors = 0;
   for (int i = -1; i < 2; i++) {
     for (int j = -1; j < 2; j++) {
       num_neighbors += grid[x + i][y + j];  // 0's and 1's so add for sum

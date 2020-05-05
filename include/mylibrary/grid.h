@@ -46,7 +46,7 @@ class Grid {
    * @param dimension: passed in size of the grid
    * @param seed: vector containing coordinates of cells from json file
    */
-  void SetDimensionAndFillSeeds(size_t dimension,
+  void SetDimensionAndFillSeeds(int dimension,
                                 std::vector<std::vector<int>> seed);
   /*
    * Helper method dealing with the main logic of calculating the next generation
@@ -76,12 +76,6 @@ class Grid {
    * be updated as the cycle continues. */
   size_t gen_id_ = 0;
 
-  /*
-   * Helper method to print out the grid after it has been filled with 1's
-   * or 0's. Method is called in the helper method FillGrid.
-   * @param passed_grid_: grid to be printed
-   */
-  void PrintGrid(std::vector<std::vector<int>> passed_grid_);
 
   // TODO comment
   bool DidGridChange();
@@ -95,7 +89,7 @@ class Grid {
    * @param y: y coordinate of the cell
    * @return: method returns the numbers of neighbors of a particular cell
    */
-  int CountNeighbors(std::vector<std::vector<int>>& grid, int x, int y);
+  size_t CountNeighbors(std::vector<std::vector<int>>& grid, int x, int y);
 };
 
 }  // namespace mylibrary
