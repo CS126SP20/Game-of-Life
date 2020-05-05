@@ -78,6 +78,9 @@ class MyApp : public cinder::app::App {
    * configurations of cells they want to see the automaton for */
   void DrawInitialScreen();
 
+  // TODO comment
+  void DrawOptions();
+
   /* // TODO not in use*/
   std::vector<std::vector<int> > filled_grid_;
 };

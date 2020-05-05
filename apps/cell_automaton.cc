@@ -27,6 +27,8 @@ const size_t kFontSize = 25;
 const char kNormalFont[] = "Times New Roman";
 const std::vector<std::string> configuration_names{"Glider", "Small Exploder",
                                                    "Ten Cell Row"};
+const std::vector<std::string> option_names{"Pause: 'p'", "Resume: 'r'",
+                                                   "Restart: 'x'"};
 
 /* Default Constructor */
 MyApp::MyApp() {}
@@ -118,20 +120,35 @@ void MyApp::DrawInitialScreen() {
   cinder::gl::color(0, 0, 0);
   const Color color = Color::black();
   const cinder::ivec2 size = {100, 60};
-  cinder::vec2 location = {80, 425};
+  cinder::vec2 location = {80, 355};
 
   PrintText(
       "Welcome to the Game of Life!\n Please press the number of the cell "
-      "automaton\n you want to see",
-      color, {300, 150}, {300, 270});
+      "automaton\n you want to see:",
+      color, {300, 150}, {300, 200});
   size_t x = 20;
-  size_t y = 390;
+  size_t y = 320;
   for (int i = 1; i < 4; i++) {
     cinder::gl::drawStrokedRect(Rectf(x, y, x + 170, y + 70));
     x += 190;
     PrintText(std::to_string(i) + ". " + configuration_names[i - 1], color,
               size, location);
     location.x += 190;
+  }
+}
+
+void MyApp::DrawOptions() {
+  const Color color = Color::black();
+  const cinder::ivec2 size = {150, 40};
+  cinder::vec2 location = {80, 630};
+  size_t x = 20;
+  size_t y = 610;
+  for (int i = 0; i < 3; i++) {
+    cinder::gl::drawStrokedRect(Rectf(x, y, x + 170, y + 40));
+    x += 200;
+    PrintText(option_names[i], color,
+              size, location);
+    location.x += 210;
   }
 }
 
@@ -153,6 +170,7 @@ void MyApp::drawFilledGrid(std::vector<std::vector<int>>& grid) {
       }
     }
   }
+  DrawOptions();
 }
 
 /* Method dealing with user choice of file. (in progress) checks if user
