@@ -25,11 +25,11 @@ std::vector<std::vector<int>>& Grid::Get_Curr_Grid() {
 std::vector<std::vector<int>>& Grid::Get_Curr_Grid(bool& did_gen_change) {
   if (gen_id_ % 2 == 0) {
     CalculateNextGeneration(grids[0], grids[1]);
-    did_gen_change = true;
   } else {
     CalculateNextGeneration(grids[1], grids[0]);
-    did_gen_change = true;
   }
+  //TODO implemt checking changep
+  did_gen_change = true;
   return grids[gen_id_ % 2];
 }
 

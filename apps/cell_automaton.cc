@@ -96,21 +96,17 @@ void MyApp::draw() {
   if (Is_File_Chosen) {
     cinder::gl::clear();
     cinder::gl::clear(kWhite);
-    if (Is_Paused) {
+    if (Is_Paused || first_call == 0) { // Is_Paused cannot be set before first call
         std::vector<std::vector<int>>& grid =
                 grid_.Get_Curr_Grid();
         drawFilledGrid(grid);
+        if (first_call == 0) {
+          first_call++;
+        }
     } else {
-      if (first_call == 0) {
-        std::vector<std::vector<int>>& grid =
-            grid_.Get_Curr_Grid();
-        drawFilledGrid(grid);
-        first_call++;
-      } else {
         std::vector<std::vector<int>>& grid =
             grid_.Get_Curr_Grid(did_gen_change);
         drawFilledGrid(grid);
-      }
     }
   }
   auto time = std::chrono::system_clock::now();
