@@ -18,6 +18,8 @@ class Grid {
    * as the current grid vs. the next generation */
   std::vector<std::vector<std::vector<int>>> grids;
 
+  std::vector<std::vector<int>>& Get_Curr_Grid();
+
   /*
    * Helper method to check which grid to use as the current vs. the next
    * generation. This method facilitates the ping pong effect between the two
@@ -27,10 +29,10 @@ class Grid {
    * previously calculated as the current and fills out the other grid with the
    * next generation of that grid.
    * @param calculate_next_gen: boolean to check whether next generation should
-   * be calculated
+   * be calculated //TODO param
    * @return: returns the grid containing the current cell configuration
    */
-  std::vector<std::vector<int>>& Get_Curr_Grid(bool calculate_next_gen);
+  std::vector<std::vector<int>>& Get_Curr_Grid(bool& did_gen_change);
 
   /*
    * Helper method to resize the 3D vector of grids and fill in the grid's cell

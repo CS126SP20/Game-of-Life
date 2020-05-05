@@ -6,6 +6,10 @@
 
 namespace mylibrary {
 
+std::vector<std::vector<int>>& Grid::Get_Curr_Grid() {
+  return grids[gen_id_ % 2];
+}
+
 /*
  * Helper method to check which grid to use as the current vs. the next
  * generation. This method facilitates the ping pong effect between the two
@@ -18,13 +22,13 @@ namespace mylibrary {
  * be calculated
  * @return: returns the grid containing the current cell configuration
  */
-std::vector<std::vector<int>>& Grid::Get_Curr_Grid(bool calculate_next_gen) {
-  if (calculate_next_gen) {
-    if (gen_id_ % 2 == 0) {
-      CalculateNextGeneration(grids[0], grids[1]);
-    } else {
-      CalculateNextGeneration(grids[1], grids[0]);
-    }
+std::vector<std::vector<int>>& Grid::Get_Curr_Grid(bool& did_gen_change) {
+  if (gen_id_ % 2 == 0) {
+    CalculateNextGeneration(grids[0], grids[1]);
+    did_gen_change = true;
+  } else {
+    CalculateNextGeneration(grids[1], grids[0]);
+    did_gen_change = true;
   }
   return grids[gen_id_ % 2];
 }

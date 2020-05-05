@@ -92,18 +92,25 @@ void MyApp::draw() {
   cinder::gl::clear(kWhite);
   const cinder::vec2 center = getWindowCenter();
   DrawInitialScreen();
+  bool did_gen_change = false;
   if (Is_File_Chosen) {
     cinder::gl::clear();
     cinder::gl::clear(kWhite);
     if (Is_Paused) {
         std::vector<std::vector<int>>& grid =
-                grid_.Get_Curr_Grid(false);
+                grid_.Get_Curr_Grid();
         drawFilledGrid(grid);
     } else {
-      std::vector<std::vector<int>>& grid =
-          grid_.Get_Curr_Grid(first_call != 0);
-      first_call++;
-      drawFilledGrid(grid);
+      if (first_call == 0) {
+        std::vector<std::vector<int>>& grid =
+            grid_.Get_Curr_Grid();
+        drawFilledGrid(grid);
+        first_call++;
+      } else {
+        std::vector<std::vector<int>>& grid =
+            grid_.Get_Curr_Grid(did_gen_change);
+        drawFilledGrid(grid);
+      }
     }
   }
   auto time = std::chrono::system_clock::now();
