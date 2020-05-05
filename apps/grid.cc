@@ -28,8 +28,7 @@ std::vector<std::vector<int>>& Grid::Get_Curr_Grid(bool& did_gen_change) {
   } else {
     CalculateNextGeneration(grids[1], grids[0]);
   }
-  //TODO implemt checking changep
-  did_gen_change = true;
+  did_gen_change = DidGridChange();
   return grids[gen_id_ % 2];
 }
 
@@ -69,6 +68,16 @@ void Grid::SetDimensionAndFillSeeds(size_t dimension,
   }
 }
 
+bool Grid::DidGridChange() {
+  for (int i = 0; i < grid_dimension_; i++) {
+    for (int j = 0; j < grid_dimension_; j++) {
+      if (grids[0][i][j] != grids[1][i][j]) {
+        return true;
+      }
+    }
+  }
+  return false;
+}
 /*
  * Helper method to print out the grid after it has been filled with 1's
  * or 0's. Method is called in the helper method FillGrid.

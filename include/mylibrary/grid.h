@@ -18,6 +18,7 @@ class Grid {
    * as the current grid vs. the next generation */
   std::vector<std::vector<std::vector<int>>> grids;
 
+  // TODO comment
   std::vector<std::vector<int>>& Get_Curr_Grid();
 
   /*
@@ -81,6 +82,9 @@ class Grid {
    * @param passed_grid_: grid to be printed
    */
   void PrintGrid(std::vector<std::vector<int>> passed_grid_);
+
+  // TODO comment
+  bool DidGridChange();
 
   /*
    * Helper method to count the number of surrounding cells around a particular

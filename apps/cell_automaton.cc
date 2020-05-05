@@ -108,6 +108,9 @@ void MyApp::draw() {
     } else {
         std::vector<std::vector<int>>& grid =
             grid_.Get_Curr_Grid(did_gen_change);
+        if (!did_gen_change) {
+          PrintText("The pattern has stabilized.\n Press 'x' to see another automaton.", Color::black(), {300, 90}, {300, 520});
+        }
         drawFilledGrid(grid);
     }
   }
@@ -120,13 +123,13 @@ void MyApp::DrawInitialScreen() {
   cinder::gl::color(0, 0, 0);
   const Color color = Color::black();
   const cinder::ivec2 size = {100, 60};
-  cinder::vec2 location = {80, 355};
+  cinder::vec2 location = {85, 355};
 
   PrintText(
       "Welcome to the Game of Life!\n Please press the number of the cell "
       "automaton\n you want to see:",
       color, {300, 150}, {300, 200});
-  size_t x = 20;
+  size_t x = 25;
   size_t y = 320;
   for (int i = 1; i < 4; i++) {
     cinder::gl::drawStrokedRect(Rectf(x, y, x + 170, y + 70));
@@ -140,12 +143,12 @@ void MyApp::DrawInitialScreen() {
 void MyApp::DrawOptions() {
   const Color color = Color::black();
   const cinder::ivec2 size = {150, 40};
-  cinder::vec2 location = {80, 630};
-  size_t x = 20;
+  cinder::vec2 location = {85, 630};
+  size_t x = 25;
   size_t y = 610;
   for (int i = 0; i < 3; i++) {
     cinder::gl::drawStrokedRect(Rectf(x, y, x + 170, y + 40));
-    x += 200;
+    x += 190;
     PrintText(option_names[i], color,
               size, location);
     location.x += 210;
