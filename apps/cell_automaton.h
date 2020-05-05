@@ -10,20 +10,19 @@
 namespace myapp {
 
 /* Constant to represent the grid dimension and number of cells */
-const size_t kgrid_dimension = 600;
+const size_t kGridDimension = 600;
 
 /* Constant for dimension of each individual cell */
-const size_t kcell_size = 10; //TODO naming
+const size_t kCellDimension = 10;
 const std::string kGlider = "../../../../../../resources/glider.json";
 const std::string kSmallExploder = "../../../../../../resources/small_exploder.json";
 const std::string kTenCellRow = "../../../../../../resources/ten_cell_row.json";
 
-/* //TODO not in use */
-const size_t knum_cells = kgrid_dimension/kcell_size; //TODO format for const
+/* Constant for the numbers of cells in the grid */
+const size_t kNumCells = kGridDimension / kCellDimension;
 
 class MyApp : public cinder::app::App {
  public:
-
   /* Default Constructor */
   MyApp();
 
@@ -32,9 +31,6 @@ class MyApp : public cinder::app::App {
    * passed dimension and filled with the json coordinates
    */
   void setup() override;
-
-  //TODO not in use
-  void update() override;
 
   /*
    * Method dealing with all the draw functionality throughout the project.
@@ -78,10 +74,12 @@ class MyApp : public cinder::app::App {
    * configurations of cells they want to see the automaton for */
   void DrawInitialScreen();
 
-  // TODO comment
+  /* Helper method to draw the textboxes on the screen for the user to choose
+   * to pause, resume, or restart the automaton */
   void DrawOptions();
 
-  /* // TODO not in use*/
+  /* Vector holding initial coordinates from json file to be passed in when
+   * creating grid object */
   std::vector<std::vector<int> > filled_grid_;
 };
 

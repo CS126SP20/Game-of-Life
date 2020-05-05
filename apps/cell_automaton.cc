@@ -58,7 +58,7 @@ void MyApp::ParseFile(std::string file_name) {
     filled_grid_.push_back(coordinates);
   }
 
-  grid_.SetDimensionAndFillSeeds(knum_cells, filled_grid_);
+  grid_.SetDimensionAndFillSeeds(kNumCells, filled_grid_);
   Is_File_Chosen = true;
 }
 
@@ -70,8 +70,6 @@ void MyApp::setup() {
   cinder::gl::enableDepthWrite();
   cinder::gl::enableDepthRead();
 }
-
-void MyApp::update() {}
 
 /*
  * Method dealing with all the draw functionality throughout the project.
@@ -137,6 +135,8 @@ void MyApp::DrawInitialScreen() {
   }
 }
 
+/* Helper method to draw the textboxes on the screen for the user to choose
+ * to pause, resume, or restart the automaton */
 void MyApp::DrawOptions() {
   const Color color = Color::black();
   const cinder::ivec2 size = {150, 40};
@@ -153,10 +153,10 @@ void MyApp::DrawOptions() {
 }
 
 /* Helper method to draw the empty grid and loop through to fill in the
- * live cells*/
+ * live cells */
 void MyApp::drawFilledGrid(std::vector<std::vector<int>>& grid) {
-  for (int i = 0; i < knum_cells; i++) {
-    for (int j = 0; j < knum_cells; j++) {
+  for (int i = 0; i < kNumCells; i++) {
+    for (int j = 0; j < kNumCells; j++) {
       int x_coord = i * 10;
       int y_coord = j * 10;
       if (grid[i][j] == 0) {
