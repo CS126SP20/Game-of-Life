@@ -11,7 +11,7 @@
 #### April 20, 2020
 * Added functionality to main app to serialize cell coordinates from json file
   * Eventually will be able to read from a specific file depending on the user's
-  choice of intial configuration of the cells
+  choice of initial configuration of the cells
 * Created the grid class to handle the backend logic and movement of the cells
 
 #### April 21, 2020
@@ -65,3 +65,10 @@ to choose their initial configuration of cells
 * Cleaned up code fixing syntax and spacing issues
 * Continued to work on display for user and how options are set up
 * Added documentation and fixed commenting
+
+#### May 3, 2020
+* Added logic to allow for user to pause, resume, and restart the game
+* Added these visual components to the UI and updated the main logic to support this
+* Worked on adding more documentation
+* In progress:
+  * Final clean up and documentation of code before submission
