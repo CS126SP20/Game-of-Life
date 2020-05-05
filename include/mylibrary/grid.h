@@ -16,10 +16,14 @@ class Grid {
   /*
    * 3D vector containing both grids to allow for choosing certain grid
    * as the current grid vs. the next generation */
-  std::vector<std::vector<std::vector<int>>> grids;
+  std::vector<std::vector<std::vector<int>>> grids_;
 
-  // TODO comment
-  std::vector<std::vector<int>>& Get_Curr_Grid();
+  /*
+   * Overridden function that does not take in a parameter if the grid has
+   * stabilized. Used if the user has chosen to pause the automaton or if it
+   * is the first call to the calculation of the configuration.
+   */
+  std::vector<std::vector<int>>& GetCurrentGrid();
 
   /*
    * Helper method to check which grid to use as the current vs. the next
@@ -29,11 +33,10 @@ class Grid {
    * generation to be added to. An odd id uses the next generation that was
    * previously calculated as the current and fills out the other grid with the
    * next generation of that grid.
-   * @param calculate_next_gen: boolean to check whether next generation should
-   * be calculated //TODO param
+   * @param did_gen_change_: bool to check whether the pattern has stabilized
    * @return: returns the grid containing the current cell configuration
    */
-  std::vector<std::vector<int>>& Get_Curr_Grid(bool& did_gen_change);
+  std::vector<std::vector<int>>& GetCurrentGrid(bool& did_gen_change_);
 
   /*
    * Helper method to resize the 3D vector of grids and fill in the grid's cell
@@ -48,6 +51,7 @@ class Grid {
    */
   void SetDimensionAndFillSeeds(int dimension,
                                 std::vector<std::vector<int>> seed);
+
   /*
    * Helper method dealing with the main logic of calculating the next generation
    * of cells. Method is passed in two grids- the current generation of cells to
@@ -77,7 +81,12 @@ class Grid {
   size_t gen_id_ = 0;
 
 
-  // TODO comment
+  /*
+   * Helper method to compare two grids for equality. Used to check when the
+   * cell configuration has stabilized as the grids will be equal when no more
+   * generations can be calculated.
+   * @return: Boolean for if the grids are the same in each position
+   */
   bool DidGridChange();
 
   /*

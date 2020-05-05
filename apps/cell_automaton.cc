@@ -19,9 +19,6 @@ using cinder::ColorA;
 using cinder::Rectf;
 using cinder::app::KeyEvent;
 
-using namespace ci;
-using namespace ci::app;
-
 const Color kWhite = Color(255, 255, 255);
 const size_t kFontSize = 25;
 const char kNormalFont[] = "Times New Roman";
@@ -100,14 +97,14 @@ void MyApp::draw() {
     cinder::gl::clear(kWhite);
     if (Is_Paused || first_call == 0) { // Is_Paused cannot be set before first call
         std::vector<std::vector<int>>& grid =
-                grid_.Get_Curr_Grid();
+                grid_.GetCurrentGrid();
         drawFilledGrid(grid);
         if (first_call == 0) {
           first_call++;
         }
     } else {
         std::vector<std::vector<int>>& grid =
-            grid_.Get_Curr_Grid(did_gen_change);
+            grid_.GetCurrentGrid(did_gen_change);
         if (!did_gen_change) {
           PrintText("The pattern has stabilized.\n Press 'x' to see another automaton.", Color::black(), {300, 90}, {300, 520});
         }

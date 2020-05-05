@@ -6,8 +6,13 @@
 
 namespace mylibrary {
 
-std::vector<std::vector<int>>& Grid::Get_Curr_Grid() {
-  return grids[gen_id_ % 2];
+/*
+ * Overridden function that does not take in a parameter if the grid has
+ * stabilized. Used if the user has chosen to pause the automaton or if it
+ * is the first call to the calculation of the configuration.
+ */
+std::vector<std::vector<int>>& Grid::GetCurrentGrid() {
+  return grids_[gen_id_ % 2];
 }
 
 /*
@@ -22,14 +27,14 @@ std::vector<std::vector<int>>& Grid::Get_Curr_Grid() {
  * be calculated
  * @return: returns the grid containing the current cell configuration
  */
-std::vector<std::vector<int>>& Grid::Get_Curr_Grid(bool& did_gen_change) {
+std::vector<std::vector<int>>& Grid::GetCurrentGrid(bool& did_gen_change_) {
   if (gen_id_ % 2 == 0) {
-    CalculateNextGeneration(grids[0], grids[1]);
+    CalculateNextGeneration(grids_[0], grids_[1]);
   } else {
-    CalculateNextGeneration(grids[1], grids[0]);
+    CalculateNextGeneration(grids_[1], grids_[0]);
   }
-  did_gen_change = DidGridChange();
-  return grids[gen_id_ % 2];
+  did_gen_change_ = DidGridChange();
+  return grids_[gen_id_ % 2];
 }
 
 /*
@@ -48,30 +53,36 @@ void Grid::SetDimensionAndFillSeeds(int dimension,
   grid_dimension_ = dimension;
 
   // first level
-  grids.resize(2);  // TODO magic #
+  grids_.resize(2);
 
   // second level
-  grids[0].resize(dimension);
-  grids[1].resize(dimension);
+  grids_[0].resize(dimension);
+  grids_[1].resize(dimension);
 
   // third level
   for (int i = 0; i < 2; i++) {
     for (int j = 0; j < dimension; j++) {
-      grids[i][j].resize(dimension);
+      grids_[i][j].resize(dimension);
     }
   }
 
   for (int i = 0; i < seed.size(); i++) {
     assert((seed[i][0]) < grid_dimension_);
     assert((seed[i][1]) < grid_dimension_);
-    grids[0][seed[i][0]][seed[i][1]] = 1;
+    grids_[0][seed[i][0]][seed[i][1]] = 1;
   }
 }
 
+/*
+ * Helper method to compare two grids for equality. Used to check when the
+ * cell configuration has stabilized as the grids will be equal when no more
+ * generations can be calculated.
+ * @return: Boolean for if the grids are the same in each position
+ */
 bool Grid::DidGridChange() {
   for (int i = 0; i < grid_dimension_; i++) {
     for (int j = 0; j < grid_dimension_; j++) {
-      if (grids[0][i][j] != grids[1][i][j]) {
+      if (grids_[0][i][j] != grids_[1][i][j]) {
         return true;
       }
     }
