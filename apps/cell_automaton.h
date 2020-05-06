@@ -44,16 +44,6 @@ class MyApp : public cinder::app::App {
    * file with initial configuration of cells */
   void keyDown(cinder::app::KeyEvent) override;
 
-  /* Method to display text and add text boxes to GUI */
-  void PrintText(const std::string& text, const cinder::Color color, const cinder::ivec2& size,
-                 const cinder::vec2& loc);
-
-  /* Boolean value to check if user chose a json file */
-  bool Is_File_Chosen = false;
-
-  /* Boolean value to check if user pauses the automaton */
-  bool Is_Paused = false;
-
  private:
   /* Grid object created to hold json coordinates */
   mylibrary::Grid grid_;
@@ -79,9 +69,18 @@ class MyApp : public cinder::app::App {
    * to pause, resume, or restart the automaton */
   void DrawOptions();
 
-  /* Vector holding initial coordinates from json file to be passed in when
-   * creating grid object */
-//  std::vector<std::vector<int>> filled_grid_;
+  /* Method to display text and add text boxes to GUI */
+  void PrintText(const std::string& text, const cinder::Color color, const cinder::ivec2& size,
+                 const cinder::vec2& loc);
+
+  /* Boolean value to check if user chose a json file */
+  bool Is_File_Chosen = false;
+
+  /* Boolean value to check if user pauses the automaton */
+  bool Is_Paused = false;
+
+  /* Boolean value to check if the final state is reached */
+  bool Is_Stabilized = false;
 
   size_t first_call = 0;
 

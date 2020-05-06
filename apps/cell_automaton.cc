@@ -79,12 +79,6 @@ void MyApp::setup() {
  * configurations. (in progress) will deal with which configuration to
  * draw depending on user's choice */
 void MyApp::draw() {
-  static int delay_count = 0;
-  if (delay_count % 2 != 0) {
-    delay_count++;
-    return;
-  }
-  delay_count++;
   cinder::gl::enableAlphaBlending();
   cinder::gl::clear();
   cinder::gl::clear(kWhite);
@@ -105,6 +99,7 @@ void MyApp::draw() {
       std::vector<std::vector<int>>& grid =
           grid_.GetCurrentGrid(did_gen_change);
       if (!did_gen_change) {  // TODO magic nums
+        Is_Stabilized = true;
         PrintText(
             "The pattern has stabilized.\n Press 'x' to see another automaton.",
             Color::black(), {300, 90}, {300, 520});
@@ -193,7 +188,7 @@ void MyApp::keyDown(KeyEvent event) {
       break;
     }
     case KeyEvent::KEY_p: {
-      if (Is_File_Chosen) {
+      if (Is_File_Chosen && !Is_Stabilized) {
         Is_Paused = true;
       }
       break;
