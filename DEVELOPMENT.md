@@ -66,9 +66,18 @@ to choose their initial configuration of cells
 * Continued to work on display for user and how options are set up
 * Added documentation and fixed commenting
 
-#### May 3, 2020
+#### May 4, 2020
 * Added logic to allow for user to pause, resume, and restart the game
 * Added these visual components to the UI and updated the main logic to support this
 * Worked on adding more documentation
 * In progress:
   * Final clean up and documentation of code before submission
+
+#### May 5, 2020
+* Completing functionality to allow for user to restart the game
+* Working through bugs dealing with not being able to pause/resume after the first round
+* Updating documentation from previous submissions
+
+#### May 6, 2020
+* Final clean up of code and documentation
+* Finishing up project for final submission

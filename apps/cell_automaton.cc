@@ -228,10 +228,10 @@ void MyApp::PrintText(const std::string& text, const Color color,
                  .text(text);
 
   const auto box_size = box.getSize();
-  const cinder::vec2 locp = {loc.x - box_size.x / 2, loc.y - box_size.y / 2};
+  const cinder::vec2 location = {loc.x - box_size.x / 2, loc.y - box_size.y / 2};
   const auto surface = box.render();
   const auto texture = cinder::gl::Texture::create(surface);
-  cinder::gl::draw(texture, locp);
+  cinder::gl::draw(texture, location);
 }
 
 }  // namespace myapp
