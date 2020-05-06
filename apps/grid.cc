@@ -2,8 +2,6 @@
 
 #include "../include/mylibrary/grid.h"
 
-#include <iostream>
-
 namespace mylibrary {
 
 /*

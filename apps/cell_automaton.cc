@@ -144,14 +144,14 @@ void MyApp::DrawInitialScreen() {
 void MyApp::DrawOptions() {
   const Color color = Color::black();
   const cinder::ivec2 size = {150, 40};
-  cinder::vec2 location = {85, 630};
+  cinder::vec2 location = {80, 635};
   size_t x = 25;
   size_t y = 610;
   for (int i = 0; i < 3; i++) {
     cinder::gl::drawStrokedRect(Rectf(x, y, x + 170, y + 40));
     x += 190;
     PrintText(kOptionNames[i], color, size, location);
-    location.x += 210;
+    location.x += 200;
   }
 }
 
@@ -208,6 +208,7 @@ void MyApp::keyDown(KeyEvent event) {
       cinder::gl::clear();
       Is_Paused = false;
       Is_File_Chosen = false;
+      Is_Stabilized = false;
       break;
     }
   }
