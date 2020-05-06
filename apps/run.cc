@@ -3,8 +3,6 @@
 #include <cinder/app/App.h>
 #include <cinder/app/RendererGl.h>
 
-#include <ctime>
-
 #include "cell_automaton.h"
 
 /* Visualization of game:
@@ -24,7 +22,6 @@ void SetUp(App::Settings* settings) {
   settings->setFrameRate(1.0);
   settings->setResizable(false);
   settings->setTitle("Game of Life");
-  std::srand(std::time(0));
 }
 
 }  // namespace myapp

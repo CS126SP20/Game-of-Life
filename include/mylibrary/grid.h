@@ -52,9 +52,12 @@ class Grid {
   void SetDimensionAndFillSeeds(int dimension,
                                 std::vector<std::vector<int>> seed);
 
+  /*
+   * Helper method to support restarting the automaton when the user chooses.
+   * Clears the grids, setting all positions to 0.
+   */
   void ResetGrid();
 
-  // todo function to clear grid - set all to 0
  private:
   /* Private variable to store the passed in dimension of the grid */
   size_t grid_dimension_;
@@ -66,7 +69,6 @@ class Grid {
    * be updated as the cycle continues. */
   size_t gen_id_ = 0;
 
-
   /*
    * Helper method to compare two grids for equality. Used to check when the
    * cell configuration has stabilized as the grids will be equal when no more
@@ -75,7 +77,7 @@ class Grid {
    */
   bool DidGridChange();
 
-    /*
+  /*
    * Helper method dealing with the main logic of calculating the next generation
    * of cells. Method is passed in two grids- the current generation of cells to
    * use for cell information and the next generation to be calculated and filled

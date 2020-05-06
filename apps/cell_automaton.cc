@@ -19,13 +19,17 @@ using cinder::ColorA;
 using cinder::Rectf;
 using cinder::app::KeyEvent;
 
-const Color kWhite = Color(255, 255, 255);
-const size_t kFontSize = 25;
-const char kNormalFont[] = "Times New Roman";
 const std::vector<std::string> kConfigurationNames{"Glider", "Small Exploder",
                                                    "Ten Cell Row"};
+const size_t kFontSize = 25;
+const std::string kGlider = "../../../../../../resources/glider.json";
+const char kNormalFont[] = "Times New Roman";
 const std::vector<std::string> kOptionNames{"Pause: 'p'", "Resume: 'r'",
                                             "Restart: 'x'"};
+const std::string kSmallExploder =
+    "../../../../../../resources/small_exploder.json";
+const std::string kTenCellRow = "../../../../../../resources/ten_cell_row.json";
+const Color kWhite = Color(255, 255, 255);
 
 /* Default Constructor */
 MyApp::MyApp() {}
@@ -48,9 +52,9 @@ void MyApp::ParseFile(std::string file_name) {
     std::cout << "Error in File" << std::endl;
     return;
   }
+
   nlohmann::json j;
   i >> j;
-
   for (auto& x : j["seeds"].items()) {
     int num_x = x.value()["x"];
     int num_y = x.value()["y"];
@@ -76,15 +80,18 @@ void MyApp::setup() {
 /*
  * Method dealing with all the draw functionality throughout the project.
  * Calculates the delay to have time between the drawing of cell
- * configurations. (in progress) will deal with which configuration to
+ * configurations. Deals with which configuration to
  * draw depending on user's choice */
 void MyApp::draw() {
+  const cinder::vec2 center = getWindowCenter();
+
   cinder::gl::enableAlphaBlending();
   cinder::gl::clear();
   cinder::gl::clear(kWhite);
-  const cinder::vec2 center = getWindowCenter();
+
   DrawInitialScreen();
   bool did_gen_change = false;
+
   if (Is_File_Chosen) {
     cinder::gl::clear();
     cinder::gl::clear(kWhite);
@@ -98,7 +105,7 @@ void MyApp::draw() {
     } else {
       std::vector<std::vector<int>>& grid =
           grid_.GetCurrentGrid(did_gen_change);
-      if (!did_gen_change) {  // TODO magic nums
+      if (!did_gen_change) {
         Is_Stabilized = true;
         PrintText(
             "The pattern has stabilized.\n Press 'x' to see another automaton.",
@@ -107,7 +114,6 @@ void MyApp::draw() {
       drawFilledGrid(grid);
     }
   }
-  auto time = std::chrono::system_clock::now();
 }
 
 /* Method in progress to draw buttons for the user to choose with initial
