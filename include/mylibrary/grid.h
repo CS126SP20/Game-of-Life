@@ -15,11 +15,6 @@ namespace mylibrary {
 class Grid {
  public:
   /*
-   * 3D vector containing both grids to allow for choosing certain grid
-   * as the current grid vs. the next generation */
-  std::vector<std::vector<std::vector<int>>> grids_;
-
-  /*
    * Overridden function that does not take in a parameter if the grid has
    * stabilized. Used if the user has chosen to pause the automaton or if it
    * is the first call to the calculation of the configuration.
@@ -59,17 +54,12 @@ class Grid {
    */
   void ResetGrid();
 
- private:
-  /* Private variable to store the passed in dimension of the grid */
-  size_t grid_dimension_;
-
   /*
-   * Continuously updates id of grids to allow for switching between the grid
-   * of the current generation and the next generation. Is incremented every
-   * time the next generation is calculated to allow for the current grid to
-   * be updated as the cycle continues. */
-  size_t gen_id_ = 0;
+ * 3D vector containing both grids to allow for choosing certain grid
+ * as the current grid vs. the next generation */
+  std::vector<std::vector<std::vector<int>>> grids_;
 
+ private:
   /*
    * Helper method to compare two grids for equality. Used to check when the
    * cell configuration has stabilized as the grids will be equal when no more
@@ -106,6 +96,16 @@ class Grid {
    * @return: method returns the numbers of neighbors of a particular cell
    */
   size_t CountNeighbors(std::vector<std::vector<int>>& grid, int x, int y);
+
+  /* Private variable to store the passed in dimension of the grid */
+  size_t grid_dimension_;
+
+  /*
+   * Continuously updates id of grids to allow for switching between the grid
+   * of the current generation and the next generation. Is incremented every
+   * time the next generation is calculated to allow for the current grid to
+   * be updated as the cycle continues. */
+  size_t gen_id_ = 0;
 };
 
 }  // namespace mylibrary
