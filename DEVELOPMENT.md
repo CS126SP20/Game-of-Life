@@ -80,4 +80,5 @@ to choose their initial configuration of cells
 
 #### May 6, 2020
 * Final clean up of code and documentation
-* Finishing up project for final submission
+* Finishing project for final submission
+  * Reviewing code and fixing naming conventions and format

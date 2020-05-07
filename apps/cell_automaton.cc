@@ -21,8 +21,8 @@ using cinder::app::KeyEvent;
 
 const std::vector<std::string> kConfigurationNames{"Glider", "Small Exploder",
                                                    "Ten Cell Row"};
-const size_t kFontSize = 25;
 const char kFontName[] = "Times New Roman";
+const size_t kFontSize = 25;
 const std::string kGlider = "../../../../../../resources/glider.json";
 const std::string kSmallExploder =
     "../../../../../../resources/small_exploder.json";
