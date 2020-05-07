@@ -140,8 +140,8 @@ void Grid::CalculateNextGeneration(std::vector<std::vector<int>>& curr_gen_,
  */
 size_t Grid::CountNeighbors(std::vector<std::vector<int>>& grid, int x, int y) {
   size_t num_neighbors = 0;
-  for (int i = -1; i < 2; i++) {
-    for (int j = -1; j < 2; j++) {
+  for (int i = -1; i <= 1; i++) {
+    for (int j = -1; j <= 1; j++) {
       num_neighbors += grid[x + i][y + j];  // 0's and 1's so add for sum
     }
   }

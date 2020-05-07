@@ -24,7 +24,7 @@ const std::vector<std::string> kConfigurationNames{"Glider", "Small Exploder",
 const size_t kFontSize = 25;
 const std::string kGlider = "../../../../../../resources/glider.json";
 const char kNormalFont[] = "Times New Roman";
-const std::vector<std::string> kOptionNames{"Pause: 'p'", "Resume: 'r'",
+std::vector<std::string> kOptionNames{"Pause: 'p'", "Resume: 'r'",
                                             "Restart: 'x'"};
 const std::string kSmallExploder =
     "../../../../../../resources/small_exploder.json";
@@ -195,11 +195,13 @@ void MyApp::keyDown(KeyEvent event) {
     }
     case KeyEvent::KEY_p: {
       if (Is_File_Chosen && !Is_Stabilized) {
+        kOptionNames[0] = "Paused";
         Is_Paused = true;
       }
       break;
     }
     case KeyEvent::KEY_r: {
+      kOptionNames[0] = "Pause: 'p'";
       Is_Paused = false;
       break;
     }

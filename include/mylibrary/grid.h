@@ -1,6 +1,6 @@
 // Copyright (c) 2020 [Swathi Ram]. All rights reserved.
-#ifndef FINALPROJECT_MYLIBRARY_EXAMPLE_H_
-#define FINALPROJECT_MYLIBRARY_EXAMPLE_H_
+
+#pragma once
 
 #include <cstddef>
 #include <vector>
@@ -109,5 +109,3 @@ class Grid {
 };
 
 }  // namespace mylibrary
-
-#endif  // FINALPROJECT_MYLIBRARY_EXAMPLE_H_

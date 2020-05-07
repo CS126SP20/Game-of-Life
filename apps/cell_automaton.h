@@ -1,7 +1,6 @@
 // Copyright (c) 2020 CS126SP20. All rights reserved.
 
-#ifndef FINALPROJECT_APPS_MYAPP_H_
-#define FINALPROJECT_APPS_MYAPP_H_
+#pragma once
 
 #include <cinder/app/App.h>
 
@@ -83,5 +82,3 @@ class MyApp : public cinder::app::App {
 };
 
 }  // namespace myapp
-
-#endif  // FINALPROJECT_APPS_MYAPP_H_
