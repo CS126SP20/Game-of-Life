@@ -22,15 +22,15 @@ using cinder::app::KeyEvent;
 const std::vector<std::string> kConfigurationNames{"Glider", "Small Exploder",
                                                    "Ten Cell Row"};
 const size_t kFontSize = 25;
+const char kFontName[] = "Times New Roman";
 const std::string kGlider = "../../../../../../resources/glider.json";
-const char kNormalFont[] = "Times New Roman";
-std::vector<std::string> kOptionNames{"Pause: 'p'", "Resume: 'r'",
-                                            "Restart: 'x'"};
 const std::string kSmallExploder =
     "../../../../../../resources/small_exploder.json";
 const std::string kTenCellRow = "../../../../../../resources/ten_cell_row.json";
 const Color kWhite = Color(255, 255, 255);
 
+std::vector<std::string> kOptionNames{"Pause: 'p'", "Resume: 'r'",
+                                      "Restart: 'x'"};
 /* Default Constructor */
 MyApp::MyApp() {}
 
@@ -223,7 +223,7 @@ void MyApp::PrintText(const std::string& text, const Color color,
 
   auto box = cinder::TextBox()
                  .alignment(cinder::TextBox::CENTER)
-                 .font(cinder::Font(kNormalFont, kFontSize))
+                 .font(cinder::Font(kFontName, kFontSize))
                  .size(size)
                  .color(color)
                  .backgroundColor(ColorA(0, 0, 0, 0))
